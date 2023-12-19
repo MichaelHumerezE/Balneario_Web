@@ -17,6 +17,9 @@ class Pago extends Model
         'estado',
         'tipo',
         'nota_venta_id',
+        'imagen',
+        'url',
+        'pago_facil_id'
     ];
 
     public function notaventa()

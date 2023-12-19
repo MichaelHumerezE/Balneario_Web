@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('detalle_nota_venta', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('cantidad');
-            $table->unsignedInteger('precio');
+            $table->unsignedDouble('precio');
             $table->unsignedBigInteger('producto_id');
             $table->unsignedBigInteger('nota_venta_id');
             $table->foreign('producto_id')->references('id')->on('producto');

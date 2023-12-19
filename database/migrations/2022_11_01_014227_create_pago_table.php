@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime('fecha_hora');
             $table->unsignedSmallInteger('estado');
             $table->string('tipo');
+            $table->unsignedBigInteger('pago_facil_id')->nullable();
             $table->unsignedBigInteger('nota_venta_id');
             $table->foreign('nota_venta_id')->references('id')->on('nota_venta');
             $table->timestamps();

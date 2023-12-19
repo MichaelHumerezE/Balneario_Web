@@ -100,13 +100,14 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Michael',
+            'name' => 'Juan Carlos Contreras ',
             'email' => 'm79832142l@gmail.com',
             'password' => '123456789',
             'ci' => '9866028',
             'sexo' => 'M',
-            'telefono' => '60522218',
+            'telefono' => '60933372',
             'tipo' => 'Cliente',
         ]);
+
     }
 }

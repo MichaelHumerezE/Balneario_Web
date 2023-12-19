@@ -38,7 +38,9 @@ use App\Http\Controllers\DetallenotaingresoController;
 use App\Http\Controllers\MenbresiaController;
 use App\Http\Controllers\NotaVentaClienteController;
 use App\Http\Controllers\NotaVentaController;
+use App\Http\Controllers\PagoClienteController;
 use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\UrlCallBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,15 +75,6 @@ Route::prefix('/administrador')->group(function () {
     Route::get('/roles/edit/{user}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/edit/{user}', [RoleController::class, 'update'])->name('roles.update');
 
-    Route::get('/segmentos', [SegmentoController::class, 'index'])->name('segmentos.index');
-    Route::get('/segmentos/create', [SegmentoController::class, 'create'])->name('segmentos.create');
-    Route::post('/segmentos/create', [SegmentoController::class, 'store']);
-    Route::get('/segmentos/edit/{segmento}', [SegmentoController::class, 'edit'])->name('segmentos.edit');
-    Route::put('/segmentos/edit/{segmento}', [SegmentoController::class, 'update'])->name('segmentos.update');
-
-    Route::get('/spam', [SpamController::class, 'index'])->name('spam.index');
-    Route::post('/spam', [SpamController::class, 'store'])->name('spam.create');
-
     Route::get('/reportes/producto/{data}', [ReporteController::class, 'producto'])->name(('reportes.producto'));
     Route::get('/reportes/proveedor/{data}', [ReporteController::class, 'proveedor'])->name(('reportes.proveedor'));
 });
@@ -91,7 +84,7 @@ Route::prefix('/cliente')->group(function () {
     Route::resource('/categoriaShow', CategoriaShowController::class);
     Route::resource('/catalogo', CatalogoController::class);
     Route::group(['middleware' => ['auth']], function () {
-        Route::resource('/pagosCliente', AddressClientController::class);
+        Route::resource('/pagosCliente', PagoClienteController::class);
         Route::resource('/detalleCarrito', DetalleCarritoController::class);
         Route::resource('/pagos', PagoController::class);
         Route::resource('/notaVentasCliente', NotaVentaClienteController::class);
@@ -135,3 +128,4 @@ Route::get('/index', function () {
 });
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, "handle"]);
+Route::resource('/urlCallback', UrlCallBackController::class);

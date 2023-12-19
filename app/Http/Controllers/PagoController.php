@@ -167,6 +167,9 @@ class PagoController extends Controller
             'nota_venta_id' => $notaVenta->id,
         ]);
         $this->generarqrv2($pago);
+
+        $pago = Pago::findOrFail($pago->id);
+
         //Vista
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
@@ -228,6 +231,8 @@ class PagoController extends Controller
 
         $loClient = new Client();
 
+        $tcNroPago = rand(123456789, 999999999);
+
         $laHeader = [
             'Accept' => 'application/json'
         ];
@@ -238,10 +243,10 @@ class PagoController extends Controller
             "tnTelefono"            => auth()->user()->telefono,
             'tcNombreUsuario'       => auth()->user()->name,
             'tnCiNit'               => auth()->user()->ci,
-            'tcNroPago'             => rand(123456789, 999999999),
+            'tcNroPago'             => $tcNroPago,
             "tnMontoClienteEmpresa" => $pago->monto_total,
             "tcCorreo"              => auth()->user()->email,
-            'tcUrlCallBack'         => "http://localhost:8000",
+            'tcUrlCallBack'         => route('urlCallback.store'),
             "tcUrlReturn"           => "http://localhost:8000",
             'taPedidoDetalle'       => $detallesF
         ];
@@ -269,6 +274,8 @@ class PagoController extends Controller
         // Obtiene la URL del archivo almacenado en S3
         $qrCodeUrl = Storage::disk('s3')->url($fileName);
 
+        $pago = Pago::findOrFail($pago->id);
+        $pago->pago_facil_id = $tcNroPago;
         $pago->imagen = 'pagos/' . $fileName;
         $pago->url = $qrCodeUrl;
         $pago->save();

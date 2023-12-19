@@ -8,9 +8,10 @@
                     <i class="fa fa-arrow-left"></i>
                     Volver</a>
             </div><br>
-            <form action="{{route('pagos.store')}}" method="POST" enctype="multipart/form-data" id="create">
-                @include('cliente.metodoDePago.partials.form')
-            </form>
+            <div class="text-center mt-3">
+                <img src="{{ url($pago->url) }}" alt="Imagen" class="img-fluid" style="max-width: 400px; height: auto;">
+                <!-- Ajusta la ruta y los estilos según tus necesidades -->
+            </div>
         </div>
         <div class="card-footer">
             <Button class="primary-btn order-submit" form="create">
