@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class ProductoSeeder extends Seeder
      */
     public function run()
     {
-        producto::create([
+        Producto::create([
             'nombre' => 'Pique Macho',
             'descripcion' => 'Pique Macho',
             'stock' => 15,
@@ -25,7 +25,7 @@ class ProductoSeeder extends Seeder
             'subcategoria_id' => 2
         ]);
 
-        producto::create([
+        Producto::create([
             'nombre' => 'Chicharron',
             'descripcion' => 'Chicharron',
             'stock' => 15,
@@ -35,7 +35,7 @@ class ProductoSeeder extends Seeder
             'subcategoria_id' => 2
         ]);
 
-        producto::create([
+        Producto::create([
             'nombre' => 'Empanada de Queso',
             'descripcion' => 'Empanada de Queso',
             'stock' => 30,
@@ -45,7 +45,7 @@ class ProductoSeeder extends Seeder
             'subcategoria_id' => 1
         ]);
 
-        producto::create([
+        Producto::create([
             'nombre' => 'Coca Cola 2 Lts',
             'descripcion' => 'Coca Cola 2 Lts',
             'stock' => 40,
@@ -55,7 +55,7 @@ class ProductoSeeder extends Seeder
             'subcategoria_id' => 4
         ]);
 
-        producto::create([
+        Producto::create([
             'nombre' => 'Boleto de Entrada',
             'descripcion' => 'Boleto de Entrada',
             'stock' => 50,
