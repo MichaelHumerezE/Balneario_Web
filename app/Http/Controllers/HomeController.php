@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
-use App\Models\categoria;
+use App\Models\Categoria;
 use App\Models\DetalleCarrito;
 use App\Models\Producto;
 
@@ -27,7 +27,6 @@ class HomeController extends Controller
     public function index()
     {
         $productos = Producto::get();
-        $categorias = categoria::get();
         if (auth()->user()) {
             if (auth()->user()->tipo == 'Empleado') {
                 return view('administrador.home');
@@ -36,10 +35,10 @@ class HomeController extends Controller
                 $carrito = Carrito::where('cliente_id', auth()->user()->id);
                 $carrito = $carrito->where('estado', 0)->first();
                 $detallesCarrito = DetalleCarrito::get();
-                return view('cliente.home', compact('productos', 'categorias', 'carrito', 'detallesCarrito'));
+                return view('cliente.home', compact('productos', 'carrito', 'detallesCarrito'));
             }
         }
-        return view('cliente.home', compact('productos', 'categorias'));
+        return view('cliente.home', compact('productos'));
     }
 
     public function indexA()

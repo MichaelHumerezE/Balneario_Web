@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
-use App\Models\categoria;
 use App\Models\DetalleCarrito;
-use App\Models\marca;
 use App\Models\Producto;
-use App\Models\Promocion;
 use App\Models\Subcategoria;
 
 class CategoriaShowController extends Controller

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
 use App\Models\Bitacora;
-use App\Models\categoria;
+use App\Models\Categoria;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -52,7 +52,7 @@ class CategoriaController extends Controller
      */
     public function store(StoreCategoriaRequest $request)
     {
-        categoria::create($request->validated());
+        Categoria::create($request->validated());
         //Bitacora
         $id2 = Auth::id();
         $user = User::where('iduser', $id2)->first();
@@ -126,7 +126,7 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        $categoria = categoria::findOrFail($id);
+        $categoria = Categoria::findOrFail($id);
         $request = Request::capture();
         try {
             $categoria->delete();
