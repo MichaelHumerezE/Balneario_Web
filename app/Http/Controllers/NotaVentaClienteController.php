@@ -6,7 +6,7 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class NotaVentaClienteController extends Controller
@@ -19,7 +19,7 @@ class NotaVentaClienteController extends Controller
     public function index()
     {
         $detallesCarrito = DetalleCarrito::get();
-        $productos = producto::get();
+        $productos = Producto::get();
         $carritos = Carrito::where('cliente_id', auth()->user()->id)->paginate(10);
         $notaVentas = NotaVenta::where('usuario_id', auth()->user()->id)->paginate(10);
         return view('cliente.pedidos.index', compact('pedidos', 'carritos', 'detallesCarrito', 'productos'));
@@ -56,7 +56,7 @@ class NotaVentaClienteController extends Controller
     {
         $notaVentas = NotaVenta::findOrFail($id);
         $detallesNotaVenta = DetalleNotaVenta::where('nota_venta_id', $id)->paginate(10);
-        $productos = producto::get();
+        $productos = Producto::get();
         $detallesCarrito = DetalleCarrito::get();
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();

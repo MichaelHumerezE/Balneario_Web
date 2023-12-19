@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
@@ -55,8 +55,8 @@ class CatalogoController extends Controller
      */
     public function show($id)
     {
-        $productos = producto::get();
-        $producto = producto::findOrFail($id);
+        $productos = Producto::get();
+        $producto = Producto::findOrFail($id);
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();

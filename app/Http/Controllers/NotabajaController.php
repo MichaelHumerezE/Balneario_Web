@@ -8,7 +8,7 @@ use App\Models\Bitacora;
 use App\Models\detallenotabaja;
 use App\Models\notabaja;
 use App\Models\Persona;
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

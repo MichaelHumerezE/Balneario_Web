@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleCarrito;
-use App\Http\Requests\StoreDetalleCarritoRequest;
 use App\Http\Requests\UpdateDetalleCarritoRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
-use App\Models\categoria;
-use App\Models\marca;
-use App\Models\Persona;
-use App\Models\producto;
-use App\Models\Promocion;
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +23,7 @@ class DetalleCarritoController extends Controller
      */
     public function index()
     {
-        $productos = producto::get();
+        $productos = Producto::get();
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::where('carrito_id', $carrito->id)->paginate(9);
@@ -52,7 +47,7 @@ class DetalleCarritoController extends Controller
      */
     public function store(Request $request)
     {
-        $producto = producto::findOrFail($request->producto_id);
+        $producto = Producto::findOrFail($request->producto_id);
         $carrito = Carrito::findOrFail($request->carrito_id);
         $detallesC = DetalleCarrito::get();
         foreach ($detallesC as $detalleC) {
@@ -129,7 +124,7 @@ class DetalleCarritoController extends Controller
      */
     public function update(UpdateDetalleCarritoRequest $request, $id)
     {
-        $producto = producto::findOrFail($request->producto_id);
+        $producto = Producto::findOrFail($request->producto_id);
         $carrito = Carrito::findOrFail($request->carrito_id);
         $detalleCarrito = DetalleCarrito::findOrFail($id);
         if ($producto->stock >= $request->cantidad && $request->cantidad > 0) {

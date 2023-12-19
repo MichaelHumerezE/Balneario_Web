@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrito;
 use App\Models\categoria;
 use App\Models\DetalleCarrito;
-use App\Models\producto;
+use App\Models\Producto;
 
 class HomeController extends Controller
 {
@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $productos = producto::get();
+        $productos = Producto::get();
         $categorias = categoria::get();
         if (auth()->user()) {
             if (auth()->user()->tipo == 'Empleado') {

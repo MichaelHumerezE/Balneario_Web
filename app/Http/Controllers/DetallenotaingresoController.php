@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\detallenotaingreso;
 use Illuminate\Http\Request;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Http\Controllers\ProductoController;
 use App\Http\Requests\ProductoFormRequest;
 use App\Http\Requests\StoreDetalleNotaIngresoRequest;
@@ -39,7 +39,7 @@ class DetallenotaingresoController extends Controller
     public function show($id)
     {
         $notaIng = notaingreso::findOrFail($id);
-        $productos = producto::get();
+        $productos = Producto::get();
         return view('administrador.gestionar_detallenotaingreso.create', compact('notaIng', 'productos'));
     }
 
@@ -58,7 +58,7 @@ class DetallenotaingresoController extends Controller
         $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
         $notaIng->total = $notaIng->total + $detalleNotaIng->total;
         $notaIng->save();
-        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto = Producto::findOrFail($detalleNotaIng->idproducto);
         $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
         $producto->save();
         //Bitacora
@@ -104,7 +104,7 @@ class DetallenotaingresoController extends Controller
     public function edit($id)
     {
         $detalleNotaIng = detallenotaingreso::findOrFail($id);
-        $productos = producto::get();
+        $productos = Producto::get();
         return view('administrador.gestionar_detallenotaingreso.edit', compact('detalleNotaIng', 'productos'));
     }
 
@@ -119,7 +119,7 @@ class DetallenotaingresoController extends Controller
     public function update(UpdateDetalleNotaIngresoRequest $request, $id)
     {
         $detalleNotaIng = detallenotaingreso::findOrFail($id);
-        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto = Producto::findOrFail($detalleNotaIng->idproducto);
         $producto->stock = $producto->stock - $detalleNotaIng->cantidad;
         $producto->save();
         $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
@@ -130,7 +130,7 @@ class DetallenotaingresoController extends Controller
         $detalleNotaIng->save();
         $notaIng->total = $notaIng->total + $detalleNotaIng->total;
         $notaIng->save();
-        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto = Producto::findOrFail($detalleNotaIng->idproducto);
         $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
         $producto->save();
         //Bitacora
@@ -170,7 +170,7 @@ class DetallenotaingresoController extends Controller
             $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
             $notaIng->total = $notaIng->total - $detalleNotaIng->total;
             $notaIng->save();
-            $producto = producto::findOrFail($detalleNotaIng->idproducto);
+            $producto = Producto::findOrFail($detalleNotaIng->idproducto);
             $producto->stock = $producto->stock - $detalleNotaIng->cantidad;
             $producto->save();
             $detalleNotaIng->delete();

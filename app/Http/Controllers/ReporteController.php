@@ -22,9 +22,8 @@ class ReporteController extends Controller
             return Excel::download(new ProductosExport, 'productos.xlsx');
         } else {
             $productos = producto::all();
-            $marcas = marca::get();
             $categorias = categoria::get();
-            $pdf = PDF::loadView('administrador.reportes.producto', compact('productos', 'marcas', 'categorias'));
+            $pdf = PDF::loadView('administrador.reportes.producto', compact('productos', 'categorias'));
             return $pdf->stream();
         }
     }
@@ -36,8 +35,7 @@ class ReporteController extends Controller
         } elseif ($data == 'xlsx') {
             return Excel::download(new ProveedoresExport, 'proveedores.xlsx');
         } else {
-            $proveedores = Proveedor::all();
-            $pdf = PDF::loadView('administrador.reportes.proveedor', compact('proveedores'));
+            $pdf = PDF::loadView('administrador.reportes.proveedor'));
             return $pdf->stream();
         }
     }

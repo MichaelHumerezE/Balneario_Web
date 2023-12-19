@@ -73,12 +73,12 @@ class PagoController extends Controller
             'usuario_id' => auth()->user()->id,
         ]);
         //Actiualizacion de stock
-        $productos = producto::get();
+        $productos = Producto::get();
         $detallesCarrito = DetalleCarrito::get()->where('carrito_id', $carrito->id);
         foreach ($detallesCarrito as $detalleCarrito) {
             foreach ($productos as $producto) {
                 if ($detalleCarrito->producto_id == $producto->id) {
-                    $prod = producto::findOrFail($producto->id);
+                    $prod = Producto::findOrFail($producto->id);
                     $prod->stock = $prod->stock - $detalleCarrito->cantidad;
                     $prod->save();
                 }
@@ -134,7 +134,7 @@ class PagoController extends Controller
             'usuario_id' => auth()->user()->id,
         ]);
         //Detalle Nota Venta
-        $productos = producto::get();
+        $productos = Producto::get();
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get()->where('carrito_id', $carrito->id);

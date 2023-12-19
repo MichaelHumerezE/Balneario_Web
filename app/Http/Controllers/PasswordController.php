@@ -7,7 +7,7 @@ use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Persona;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +81,7 @@ class PasswordController extends Controller
         $perfil = User::find($id);
         $persona = Persona::find($id);
         if ($persona->tipoc == 1) {
-            $productos = producto::get();
+            $productos = Producto::get();
             $carrito = Carrito::where('idCliente', auth()->user()->id);
             $carrito = $carrito->where('estado', 1)->first();
             $detallesCarrito = DetalleCarrito::get();

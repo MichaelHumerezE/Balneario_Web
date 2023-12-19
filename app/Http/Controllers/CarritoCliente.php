@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Persona;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -65,7 +65,7 @@ class CarritoCliente extends Controller
     {
         $carrito = Carrito::findOrFail($id);
         $detallesCarritos = DetalleCarrito::where('carrito_id', $id)->paginate(10);
-        $productos = producto::get();
+        $productos = Producto::get();
         return view('administrador.gestionar_carrito_de_clientes.indexDetalle', compact('detallesCarritos', 'productos', 'carrito'));
     }
 

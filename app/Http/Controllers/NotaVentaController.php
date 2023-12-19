@@ -8,7 +8,7 @@ use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\NotaVenta;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -68,7 +68,7 @@ class NotaVentaController extends Controller
         $nota_venta = NotaVenta::findOrFail($id);
         $carrito = Carrito::findOrFail($nota_venta->id_carrito);
         $detallesCarritos = DetalleCarrito::where('carrito_id', $carrito->id)->paginate(10);
-        $productos = producto::get();
+        $productos = Producto::get();
         return (view('administrador.gestionar_nota_ventas.show', compact('detallesCarritos', 'productos')));
     }
 
@@ -96,12 +96,12 @@ class NotaVentaController extends Controller
         $nota_venta = NotaVenta::findOrFail($id);
         $nota_venta->update($request->validated());
         if($request->estado == 'Cancelado'){
-            $productos = producto::get();
+            $productos = Producto::get();
             $detallesCarrito = DetalleCarrito::get()->where('idCarrito', $nota_venta->id_carrito);
             foreach($detallesCarrito as $detalleCarrito){
                 foreach($productos as $producto){
                     if($detalleCarrito->idProducto == $producto->id){
-                        $prod = producto::findOrFail($producto->id);
+                        $prod = Producto::findOrFail($producto->id);
                         $prod->stock = $prod->stock + $detalleCarrito->cantidad;
                         $prod->save();
                     }
@@ -144,7 +144,7 @@ class NotaVentaController extends Controller
         $nota_venta = NotaVenta::findOrFail($factura->id_nota_venta);
         $pago = Pago::findOrfail($nota_venta->id_pago);
         $tipoPago = TipoPago::findOrFail($pago->id_tipoPago);
-        $productos = producto::get();
+        $productos = Producto::get();
         $carrito = Carrito::findOrFail($nota_venta->id_carrito);
         $detallesCarritos = DetalleCarrito::get()->where('idCarrito', $carrito->id);
         //Bitacora

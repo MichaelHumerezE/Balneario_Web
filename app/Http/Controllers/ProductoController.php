@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use App\Models\Bitacora;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +56,7 @@ class ProductoController extends Controller
      */
     public function store(StoreProductoRequest $request)
     {
-        $producto = producto::create($request->validated());
+        $producto = Producto::create($request->validated());
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $ext = $file->getClientOriginalExtension();
@@ -99,7 +99,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        $producto = producto::findOrFail($id);
+        $producto = Producto::findOrFail($id);
         $subcategorias = Subcategoria::get();
         return view('administrador.gestionar_producto.edit', compact('producto', 'subcategorias'));
     }
@@ -113,7 +113,7 @@ class ProductoController extends Controller
      */
     public function update(UpdateProductoRequest $request, $id)
     {
-        $producto = producto::findOrFail($id);
+        $producto = Producto::findOrFail($id);
         $producto->update($request->validated());
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
@@ -149,7 +149,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $request = Request::capture();
-        $producto = producto::findOrFail($id);
+        $producto = Producto::findOrFail($id);
         try {
             $producto->delete();
             //Bitacora

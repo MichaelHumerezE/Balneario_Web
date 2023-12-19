@@ -8,7 +8,7 @@ use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Persona;
-use App\Models\producto;
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -53,7 +53,7 @@ class DetalleCarritoCliente extends Controller
      */
     public function store(StoreDetalleCarritoRequest $request)
     {
-        $producto = producto::findOrFail($request->producto_id);
+        $producto = Producto::findOrFail($request->producto_id);
         $request['precio'] = $producto->precio;
         $carrito = Carrito::findOrFail($request->carrito_id);
         $detallesC = DetalleCarrito::get();
@@ -130,7 +130,7 @@ class DetalleCarritoCliente extends Controller
     public function edit($id)
     {
         $detalleCarrito = DetalleCarrito::findOrFail($id);
-        $productos = producto::get();
+        $productos = Producto::get();
         $carrito = Carrito::findOrFail($detalleCarrito->idCarrito);
         return view('administrador.gestionar_carrito_de_clientes.edit', compact('productos', 'carrito', 'detalleCarrito'));
     }
@@ -144,7 +144,7 @@ class DetalleCarritoCliente extends Controller
      */
     public function update(UpdateDetalleCarritoRequest $request, $id)
     {
-        $producto = producto::findOrFail($request->idProducto);
+        $producto = Producto::findOrFail($request->idProducto);
         $carrito = Carrito::findOrFail($request->idCarrito);
         $detalleCarrito = DetalleCarrito::findOrFail($id);
         if ($producto->stock >= $request->cantidad && $request->cantidad > 0) {

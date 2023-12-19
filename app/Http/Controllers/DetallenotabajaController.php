@@ -8,7 +8,7 @@ use App\Models\Bitacora;
 use App\Models\detallenotabaja;
 use App\Models\notabaja;
 use App\Models\Persona;
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +51,7 @@ class DetallenotabajaController extends Controller
         $notaBaja = notabaja::findOrFail($detalleNotaBaja->idnotabaja);
         $notaBaja->total = $notaBaja->total + $detalleNotaBaja->total;
         $notaBaja->save();
-        $producto = producto::findOrFail($detalleNotaBaja->idproducto);
+        $producto = Producto::findOrFail($detalleNotaBaja->idproducto);
         $producto->stock = $producto->stock - $detalleNotaBaja->cantidad;
         $producto->save();
         //Bitacora
@@ -85,7 +85,7 @@ class DetallenotabajaController extends Controller
     public function show($id)
     {
         $notaBaja = notabaja::findOrFail($id);
-        $productos = producto::get();
+        $productos = Producto::get();
         return view('administrador.gestionar_detallenotabaja.create', compact('notaBaja', 'productos'));
     }
 
@@ -98,7 +98,7 @@ class DetallenotabajaController extends Controller
     public function edit($id)
     {
         $detalleNotaBaja = detallenotabaja::findOrFail($id);
-        $productos = producto::get();
+        $productos = Producto::get();
         return view('administrador.gestionar_detallenotabaja.edit', compact('detalleNotaBaja', 'productos'));
     }
 
@@ -112,7 +112,7 @@ class DetallenotabajaController extends Controller
     public function update(UpdateDetalleNotaBajaRequest $request, $id)
     {
         $detalleNotaBaja = detallenotabaja::findOrFail($id);
-        $producto = producto::findOrFail($detalleNotaBaja->idproducto);
+        $producto = Producto::findOrFail($detalleNotaBaja->idproducto);
         $producto->stock = $producto->stock + $detalleNotaBaja->cantidad;
         $producto->save();
         $notaBaja = notabaja::findOrFail($detalleNotaBaja->idnotabaja);
@@ -123,7 +123,7 @@ class DetallenotabajaController extends Controller
         $detalleNotaBaja->save();
         $notaBaja->total = $notaBaja->total + $detalleNotaBaja->total;
         $notaBaja->save();
-        $producto = producto::findOrFail($detalleNotaBaja->idproducto);
+        $producto = Producto::findOrFail($detalleNotaBaja->idproducto);
         $producto->stock = $producto->stock - $detalleNotaBaja->cantidad;
         $producto->save();
         //Bitacora
