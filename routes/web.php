@@ -95,7 +95,7 @@ Route::get('/registro', [RegistroController::class, 'show']);
 Route::post('/registro', [RegistroController::class, 'register']);
 
 Route::get('/acceso', [AccesoController::class, 'show'])->name('acceso');
-Route::post('/acceso', [AccesoController::class, 'login']);
+Route::post('/acceso', [AccesoController::class, 'login'])->name('acceso.login');
 
 Route::get('/cierreSesion', [CierreSesionController::class, 'logout']);
 
