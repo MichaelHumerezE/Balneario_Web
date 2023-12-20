@@ -245,12 +245,12 @@
             <div id="responsive-nav">
                 <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
-                    <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
+                    <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="{{route('home')}}">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
                             href="{{ route('catalogo.index') }}">Catálogo</a></li>
                     <li
                         class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}">
-                        <a href="{{ route('categoriaShow.index') }}">Categorías</a>
+                        <a href="{{ route('categoriaShow.index') }}">Subcategorías</a>
                     </li>
                     @auth
                         <li
@@ -295,26 +295,24 @@
                 <div class="row">
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
-                            <h3 class="footer-title">About Us</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut.</p>
+                            <h3 class="footer-title">Acerca de Nosotros</h3>
+                            <p>
+                                Descubre la serenidad en Playa Caribe, un refugio de bienestar en medio de la naturaleza. Disfruta de piscinas relajantes, tratamientos rejuvenecedores y momentos de tranquilidad. ¡Bienvenido a tu escape perfecto!</p>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                <li><a href="#"><i class="fa fa-map-marker"></i>_Cuadras de UE. Honorato Mejia Cuellar, 9no anillo 6, Santa Cruz de la Sierra</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i>+591 70933211</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>PlayaCaribe@gmail.com</a></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
-                            <h3 class="footer-title">Categories</h3>
+                            <h3 class="footer-title">Subcategorias</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Hot deals</a></li>
-                                <li><a href="#">Laptops</a></li>
-                                <li><a href="#">Smartphones</a></li>
-                                <li><a href="#">Cameras</a></li>
-                                <li><a href="#">Accessories</a></li>
+                                @foreach ($subcategorias as $subcategoria)
+                                <li><a href="{{route('categoriaShow.show', $subcategoria->id)}}">{{$subcategoria->nombre}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -346,9 +344,9 @@
                                     <li><a href="{{ url('/login') }}">My Account</a></li>
                                     <li><a href="{{ url('/login') }}">Set Password</a></li>
                                 @endif
-                                <li><a href="{{ url('/cliente/AddressClient') }}">Address</a></li>
-                                <li><a href="{{ route('detalleCarrito.index') }}">View Cart</a></li>
-                                <li><a href="{{ route('notaVentasCliente.index') }}">Orders</a></li>
+                                <li><a href="{{ url('/cliente/pagosCliente') }}">Pagos</a></li>
+                                <li><a href="{{ route('detalleCarrito.index') }}">Ver Carrito</a></li>
+                                <li><a href="{{ route('notaVentasCliente.index') }}">Nota Ventas</a></li>
                                 <li><a href="#">Help</a></li>
                             </ul>
                         </div>
@@ -381,7 +379,7 @@
                                 document.write(new Date().getFullYear());
                             </script> All rights reserved | This template is made with <i
                                 class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                target="_blank">Colorlib</a>
+                                target="_blank"></a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </span>
                     </div>

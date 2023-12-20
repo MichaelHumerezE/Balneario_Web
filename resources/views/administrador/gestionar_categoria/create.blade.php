@@ -24,7 +24,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
                                             <input class="form-control form-control-lg" type="text" name="nombre"
-                                                placeholder="Ingrese el nombre del producto" />
+                                                placeholder="Ingrese el nombre del producto" required  pattern="[a-zA-Z]+" title="Solo se permiten letras"/>
                                             @error('nombre')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror

@@ -6,6 +6,7 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Pago;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 
 class PagoClienteController extends Controller
@@ -35,7 +36,9 @@ class PagoClienteController extends Controller
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get();
 
-        return view('cliente.pagos.index', compact('todosLosPagos', 'productos', 'carrito', 'detallesCarrito'));
+        $subcategorias = Subcategoria::get();
+
+        return view('cliente.pagos.index', compact('todosLosPagos', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
     }
 
     /**
@@ -66,17 +69,16 @@ class PagoClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    { {
-            $pago = Pago::findOrFail($id);
+    {
+        $pago = Pago::findOrFail($id);
 
-            //Defecto
-            $productos = Producto::get();
-            $carrito = Carrito::where('cliente_id', auth()->user()->id);
-            $carrito = $carrito->where('estado', 0)->first();
-            $detallesCarrito = DetalleCarrito::get();
-
-            return view('cliente.pagos.show', compact('pago', 'productos', 'carrito', 'detallesCarrito'));
-        }
+        //Defecto
+        $productos = Producto::get();
+        $carrito = Carrito::where('cliente_id', auth()->user()->id);
+        $carrito = $carrito->where('estado', 0)->first();
+        $detallesCarrito = DetalleCarrito::get();
+        $subcategorias = Subcategoria::get();
+        return view('cliente.pagos.show', compact('pago', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
     }
 
     /**

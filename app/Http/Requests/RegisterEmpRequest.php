@@ -24,19 +24,14 @@ class RegisterEmpRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'ci' => ['required', 'unique:personas,ci', 'min:7'],
-            'email' => ['required', 'unique:users,email'],
-            'sexo' => ['required'],
-            'celular' => ['required', 'unique:personas,celular'],
-            'domicilio' => ['required'],
-            'salario' => ['required'],
-            'estadoemp' => ['required'],
-            'tipoc' => ['required'],
-            'tipoe' => ['required'],
-            'iduser' => [''],
-            'password' => ['required', 'min:8'],
-            'password_confirmation' => ['required', 'same:password'],
+            'name' => [''],
+            'ci' => [''],
+            'email' => [''],
+            'sexo' => [''],
+            'telefono' => [''],
+            'tipo' => [''],
+            'password' => [''],
+            'password_confirmation' => [''],
         ];
     }
 }

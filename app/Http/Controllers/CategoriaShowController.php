@@ -12,14 +12,15 @@ class CategoriaShowController extends Controller
     public function index()
     {
         $categoriasShow = Subcategoria::paginate(10);
+        $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             $productos = Producto::get();
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return (view('cliente.categoria.index', compact('categoriasShow', 'productos', 'carrito', 'detallesCarrito')));
+            return (view('cliente.categoria.index', compact('categoriasShow', 'subcategorias', 'productos', 'carrito', 'detallesCarrito')));
         } else {
-            return (view('cliente.categoria.index', compact('categoriasShow')));
+            return (view('cliente.categoria.index', compact('categoriasShow', 'subcategorias')));
         }
     }
 
@@ -28,12 +29,13 @@ class CategoriaShowController extends Controller
         $productos = Producto::get();
         $productosS = Producto::where('subcategoria_id', $id)->paginate(9);
         $categoria = Subcategoria::findOrFail($id);
+        $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.categoria.show', compact('productos', 'productosS', 'categoria', 'carrito', 'detallesCarrito'));
+            return view('cliente.categoria.show', compact('productos', 'subcategorias', 'productosS', 'categoria', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.categoria.show', compact('productos', 'productosS', 'categoria'));
+        return view('cliente.categoria.show', compact('productos', 'subcategorias', 'productosS', 'categoria'));
     }
 }

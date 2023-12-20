@@ -26,6 +26,7 @@
                             <th>Monto Total</th>
                             <th>Nombre del Cliente</th>
                             <th>Usuario</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,12 +40,15 @@
                                 <td>{{ $nota_venta->users->name }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        <!--
                                         <a href="{{ url('administrador/notaVentas/' . $nota_venta->id . '/edit') }}"
                                             class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{{ route('notaVentas.show', $nota_venta->id) }}" class="btn btn-dark"><i
                                                 class="fas fa-eye"></i></a>
+                                        -->
                                         <button type="submit" class="btn btn-danger" form="delete_{{ $nota_venta->id }}">
                                             <i class="fas fa-receipt"></i>
+                                        
                                         </button>
                                         <form action="{{ route('notaVentas.destroy', $nota_venta->id) }}"
                                             id="delete_{{ $nota_venta->id }}" method="POST" enctype="multipart/form-data"

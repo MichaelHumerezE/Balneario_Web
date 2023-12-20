@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDetalleCarritoRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class DetalleCarritoController extends Controller
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::where('carrito_id', $carrito->id)->paginate(9);
-        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito'));
+        $subcategorias = Subcategoria::get();
+        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'subcategorias'));
     }
 
     /**

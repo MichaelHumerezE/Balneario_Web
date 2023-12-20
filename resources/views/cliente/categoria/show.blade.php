@@ -10,7 +10,7 @@
                     <h3 class="breadcrumb-header">{{ $categoria->nombre }}</h3>
                     <ul class="breadcrumb-tree">
                         <li><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="active">Categorías</li>
+                        <li class="active">Subategorías</li>
                         <li class="active">{{ $categoria->nombre }}</li>
                     </ul>
                 </div>
@@ -39,16 +39,8 @@
             <div class="col-md-4 col-xs-6">
                 <div class="product">
                     <div class="product-img">
-                        <img src="{{ asset('public/img/' . $producto->imagen) }}" alt="...">
+                        <img src="{{ url($producto->url) }}" alt="...">
                         <div class="product-label">
-                            @if ($producto->idpromocion != '')
-                                @foreach ($promociones as $promocion)
-                                    @if ($producto->idpromocion == $promocion->id)
-                                        <span class="sale">-{{ $promocion->descuento }}%</span>
-                                        <?php $descuento = $promocion->descuento / 100; ?>
-                                    @endif
-                                @endforeach
-                            @endif
                             @if ($producto->stock == 0)
                                 <span class="new">Sin Stock</span>
                             @endif
@@ -56,16 +48,9 @@
                     </div>
                     <div class="product-body">
                         <p class="product-category">{{ $categoria->nombre }}</p>
-                        <h3 class="product-name"><a href="#">{{ $producto->name }}</a></h3>
-                        @if ($producto->idpromocion != '')
-                            <h4 class="product-price">Bs
-                                {{ $producto->precioUnitario - $producto->precioUnitario * $descuento }}
-                                <del class="product-old-price">Bs {{ $producto->precioUnitario }}</del>
+                        <h3 class="product-name"><a href="#">{{ $producto->nombre }}</a></h3>
+                            <h4 class="product-price">Bs {{ $producto->precio }}
                             </h4>
-                        @else
-                            <h4 class="product-price">Bs {{ $producto->precioUnitario }}
-                            </h4>
-                        @endif
                         <div class="product-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -85,13 +70,8 @@
                                 @csrf
                                 <input type="number" id="cantidad" name="cantidad" min="1" max="1000"
                                     value="1">
-                                @if ($producto->idpromocion != '')
                                     <input type="hidden" name="precio" id="precio"
-                                        value="{{ $producto->precioUnitario - $producto->precioUnitario * $descuento }}">
-                                @else
-                                    <input type="hidden" name="precio" id="precio"
-                                        value="{{ $producto->precioUnitario }}">
-                                @endif
+                                        value="{{ $producto->precio }}">
                                 <input type="hidden" name="idProducto" id="idProducto" value="{{ $producto->id }}">
                                 @auth
                                     <input type="hidden" name="idCarrito" id="idCarrito" value="{{ $carrito->id }}">

@@ -56,7 +56,7 @@ class EmpleadoController extends Controller
         $empleado = User::create($request->validated());
         //Bitacora
         $id2 = Auth::id();
-        $user = User::where('iduser', $id2)->first();
+        $user = User::where('id', $id2)->first();
         $action = "Creó un nuevo registro de un usuario empleado";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $user->tipo;
@@ -106,7 +106,7 @@ class EmpleadoController extends Controller
         $empleado->save();
         //Bitacora
         $id2 = Auth::id();
-        $user = User::where('iduser', $id2)->first();
+        $user = User::where('id', $id2)->first();
         $action = "Editó un registro de un usuario empleado";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $user->tipo;
@@ -133,7 +133,7 @@ class EmpleadoController extends Controller
             $empleado->delete();
             //Bitacora
             $id2 = Auth::id();
-            $user = User::where('iduser', $id2)->first();
+            $user = User::where('id', $id2)->first();
             $action = "Eliminó un registro de un usuario empleado";
             $bitacora = Bitacora::create();
             $bitacora->tipou = $user->tipo;

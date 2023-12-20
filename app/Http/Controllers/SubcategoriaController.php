@@ -6,7 +6,7 @@ use App\Http\Requests\StoresubcategoriaRequest;
 use App\Http\Requests\UpdatesubcategoriaRequest;
 use App\Models\Bitacora;
 use App\Models\Categoria;
-use App\Models\subcategoria;
+use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;

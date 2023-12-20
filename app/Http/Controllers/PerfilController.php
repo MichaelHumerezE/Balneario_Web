@@ -7,6 +7,7 @@ use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +80,8 @@ class PerfilController extends Controller
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('perfilC.edit', compact('perfil', 'detallesCarrito', 'carrito', 'productos'));
+            $subcategorias = Subcategoria::get();
+            return view('perfilC.edit', compact('perfil', 'subcategorias', 'detallesCarrito', 'carrito', 'productos'));
         } else {
             return view('perfil.edit', compact('perfil'));
         }

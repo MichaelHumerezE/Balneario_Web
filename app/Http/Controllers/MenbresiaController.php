@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\menbresia;
+use App\Models\Menbresia;
 use App\Http\Requests\StoremenbresiaRequest;
 use App\Http\Requests\UpdatemenbresiaRequest;
 use App\Models\Bitacora;
@@ -64,7 +64,7 @@ class MenbresiaController extends Controller
         $menbresia->save();
         //Bitacora
         $id2 = Auth::id();
-        $user = User::where('iduser', $id2)->first();
+        $user = User::where('id', $id2)->first();
         $action = "Creó un nuevo registro de tipo de pago";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $user->tipo;
@@ -121,7 +121,7 @@ class MenbresiaController extends Controller
         $menbresia->save();
         //Bitacora
         $id2 = Auth::id();
-        $user = User::where('iduser', $id2)->first();
+        $user = User::where('id', $id2)->first();
         $action = "Editó un registro de tipo de pago";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $user->tipo;
@@ -148,7 +148,7 @@ class MenbresiaController extends Controller
             $menbresia->delete();
             //Bitacora
             $id2 = Auth::id();
-            $user = User::where('iduser', $id2)->first();
+            $user = User::where('id', $id2)->first();
             $action = "Eliminó un registro de un tipo de pago";
             $bitacora = Bitacora::create();
             $bitacora->tipou = $user->tipo;

@@ -11,6 +11,7 @@ use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,8 @@ class PagoController extends Controller
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.metodoDePago.index', compact('productos', 'carrito', 'detallesCarrito'));
+        $subcategorias = Subcategoria::get();
+        return view('cliente.metodoDePago.index', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito'));
     }
 
     /**
@@ -177,7 +179,9 @@ class PagoController extends Controller
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.metodoDePago.create', compact('productos', 'carrito', 'detallesCarrito', 'pago'));
+
+        $subcategorias = Subcategoria::get();
+        return view('cliente.metodoDePago.create', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito', 'pago'));
     }
 
     /**

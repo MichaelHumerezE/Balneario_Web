@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-12">
         <div class="form-floating">
-            <input type="text" placeholder="name" class="form-control" name="name"
+            <input type="text" placeholder="name" class="form-control" name="name" required  pattern="[a-zA-Z]+" title="Solo se permiten letras"
                 value="{{ isset($cliente) ? $cliente->name : old('name') }}">
             <label>Nombre</label>
         </div>
@@ -11,7 +11,7 @@
     <div class="col-12">
         <div class="form-floating">
             <input type="number" placeholder="ci" class="form-control" name="ci"
-                value="{{ isset($cliente) ? $cliente->ci : old('ci') }}">
+                value="{{ isset($cliente) ? $cliente->ci : old('ci') }}" required min="1">
             <label>CI</label>
         </div>
     </div>
@@ -35,14 +35,14 @@
     <div class="col-12">
         <div class="form-floating">
             <input type="number" placeholder="telefono" class="form-control" name="telefono"
-                value="{{ isset($cliente) ? $cliente->telefono : old('telefono') }}">
+                value="{{ isset($cliente) ? $cliente->telefono : old('telefono') }}" required min="1">
             <label>Teléfono</label>
         </div>
     </div>
     <div class="col-12">
         <div class="form-floating">
             <input type="email" placeholder="email" class="form-control" name="email"
-                value="{{ isset($cliente) ? $cliente->email : old('email') }}">
+                value="{{ isset($cliente) ? $cliente->email : old('email') }}" required>
             <label>E-Mail</label>
         </div>
     </div>
@@ -50,14 +50,14 @@
         <div class="col-12">
             <div class="form-floating">
                 <input type="password" placeholder="password" class="form-control" name="password"
-                    value="{{ isset($cliente) ? $cliente->password : old('password') }}">
+                    value="{{ isset($cliente) ? $cliente->password : old('password') }}" minlength="8">
                 <label>Contraseña</label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
                 <input type="password" placeholder="password_confirmation" class="form-control"
-                    name="password_confirmation" value="{{ isset($cliente) ? $cliente->password : old('password') }}">
+                    name="password_confirmation" value="{{ isset($cliente) ? $cliente->password : old('password') }}" minlength="8">
                 <label>Confirmar Contraseña</label>
             </div>
         </div>

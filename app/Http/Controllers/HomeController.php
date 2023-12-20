@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\DetalleCarrito;
 use App\Models\NotaVenta;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $productos = Producto::get();
+        $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             if (auth()->user()->tipo == 'Empleado') {
                 $usuarios = User::get();
@@ -49,10 +51,10 @@ class HomeController extends Controller
                 $carrito = Carrito::where('cliente_id', auth()->user()->id);
                 $carrito = $carrito->where('estado', 0)->first();
                 $detallesCarrito = DetalleCarrito::get();
-                return view('cliente.home', compact('productos', 'carrito', 'detallesCarrito'));
+                return view('cliente.home', compact('productos', 'carrito', 'detallesCarrito', 'subcategorias'));
             }
         }
-        return view('cliente.home', compact('productos'));
+        return view('cliente.home', compact('productos', 'subcategorias'));
     }
 
     public function indexA()

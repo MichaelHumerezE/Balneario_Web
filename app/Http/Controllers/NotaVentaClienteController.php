@@ -8,6 +8,7 @@ use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
 use App\Models\Pago;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class NotaVentaClienteController extends Controller
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $notaVentas = NotaVenta::where('usuario_id', auth()->user()->id)->paginate(10);
-        return view('cliente.NotaVentaCliente.index', compact('notaVentas', 'carrito', 'detallesCarrito', 'productos', 'pagos'));
+        $subcategorias = Subcategoria::get();
+        return view('cliente.NotaVentaCliente.index', compact('notaVentas', 'subcategorias', 'carrito', 'detallesCarrito', 'productos', 'pagos'));
     }
 
     /**
@@ -64,7 +66,8 @@ class NotaVentaClienteController extends Controller
         $detallesCarrito = DetalleCarrito::get();
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
-        return (view('cliente.NotaVentaCliente.show', compact('notaVentas', 'detallesCarrito', 'productos', 'detallesNotaVenta', 'carrito')));
+        $subcategorias = Subcategoria::get();
+        return (view('cliente.NotaVentaCliente.show', compact('notaVentas', 'subcategorias', 'detallesCarrito', 'productos', 'detallesNotaVenta', 'carrito')));
 
     }
 
@@ -82,7 +85,8 @@ class NotaVentaClienteController extends Controller
         $pago = Pago::where('nota_venta_id', $notaVenta->id)->first();
         $productos = producto::get();
         $detallesNotaVenta = DetalleNotaVenta::get()->where('nota_venta_id', $notaVenta->id);
-        return view('Cliente.NotaVentaCliente.factura', compact('notaVenta', 'user', 'productos', 'detallesNotaVenta', 'pago'));
+        $subcategorias = Subcategoria::get();
+        return view('cliente.NotaVentaCliente.factura', compact('notaVenta', 'user', 'productos', 'subcategorias', 'detallesNotaVenta', 'pago'));
     }
 
     /**
