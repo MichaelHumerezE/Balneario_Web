@@ -98,7 +98,7 @@ Route::post('/registro', [RegistroController::class, 'register']);
 Route::get('/acceso', [AccesoController::class, 'show'])->name('acceso');
 Route::post('/acceso', [AccesoController::class, 'login'])->name('acceso.login');
 
-Route::get('/cierreSesion', [CierreSesionController::class, 'logout']);
+Route::get('/cierreSesion', [CierreSesionController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/empleados', EmpleadoController::class);

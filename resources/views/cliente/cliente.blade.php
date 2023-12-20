@@ -25,7 +25,8 @@
     <!--  Links de template -->
 
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
-    <link rel="shortcut icon" href="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}" />
+    <link rel="shortcut icon"
+        href="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}" />
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <!--
@@ -91,7 +92,7 @@
                             <a id="navbarDropdown" class="nav-link dropdown-toggle"
                                 href="{{ route('perfil.edit', auth()->user()->id) }}">
                                 {{ Auth::user()->email }} <i class="fa fa-user-o"></i>
-                                <a class="dropdown-item" href="/cierreSesion">
+                                <a class="dropdown-item" href="{{ route('logout') }}">
                                     {{ __('Logout') }} <i class="fa fa-arrow-right"></i>
                         </li>
                     @endguest
@@ -110,7 +111,8 @@
                     <div class="col-md-3">
                         <div class="header-logo">
                             <a href="/home" class="logo">
-                                <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}" width=190px>
+                                <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}"
+                                    width=190px>
                             </a>
                         </div>
                     </div>
@@ -255,8 +257,7 @@
                             class="{{ 'cliente/notaVentasCliente' == Request::is('cliente/notaVentasCliente*') ? 'active' : '' }}">
                             <a href="{{ route('notaVentasCliente.index') }}">Nota Ventas</a>
                         </li>
-                        <li
-                            class="{{ 'cliente/pagosCliente' == Request::is('cliente/pagosCliente*') ? 'active' : '' }}">
+                        <li class="{{ 'cliente/pagosCliente' == Request::is('cliente/pagosCliente*') ? 'active' : '' }}">
                             <a href="{{ url('/cliente/pagosCliente') }}">Pagos</a>
                         </li>
                     @endAuth

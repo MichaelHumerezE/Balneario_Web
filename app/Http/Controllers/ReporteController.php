@@ -35,7 +35,7 @@ class ReporteController extends Controller
         } elseif ($data == 'xlsx') {
             return Excel::download(new ProveedoresExport, 'proveedores.xlsx');
         } else {
-            $pdf = PDF::loadView('administrador.reportes.proveedor'));
+            $pdf = PDF::loadView('administrador.reportes.proveedor');
             return $pdf->stream();
         }
     }
