@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Producto;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
@@ -17,13 +18,14 @@ class CatalogoController extends Controller
     public function index()
     {
         $productos = Producto::paginate(9);
+        $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.catalogo.catalogo', compact('productos', 'carrito', 'detallesCarrito'));
+            return view('cliente.catalogo.catalogo', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.catalogo.catalogo', compact('productos'));
+        return view('cliente.catalogo.catalogo', compact('productos', 'subcategorias'));
     }
 
     /**
@@ -57,13 +59,14 @@ class CatalogoController extends Controller
     {
         $productos = Producto::get();
         $producto = Producto::findOrFail($id);
+        $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.catalogo.product', compact('productos', 'producto', 'carrito', 'detallesCarrito'));
+            return view('cliente.catalogo.product', compact('productos', 'subcategorias', 'producto', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.catalogo.product', compact('productos', 'producto'));
+        return view('cliente.catalogo.product', compact('productos', 'producto', 'subcategorias'));
     }
 
     /**
