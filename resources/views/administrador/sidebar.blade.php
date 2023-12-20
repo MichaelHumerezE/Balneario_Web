@@ -77,7 +77,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/pagos') }}">
+                <a class="sidebar-link" href="{{ url('administrador/pagosAdmin') }}">
                     <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">
                         Pagos</span>
                 </a>

@@ -122,7 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/notaBaja', NotabajaController::class);
     Route::resource('/administrador/detalleNotaBaja', DetallenotabajaController::class);
     Route::resource('/administrador/promoMail', PromoMailController::class);
-    Route::resource('/administrador/pagos', PagoAdminController::class);
+    Route::resource('/administrador/pagosAdmin', PagoAdminController::class);
 });
 
 Route::get('/index', function () {
