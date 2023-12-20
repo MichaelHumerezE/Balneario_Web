@@ -83,7 +83,7 @@ class MenbresiaController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('menbresias.index')->with('mensaje', 'Menbresia Agregado Con Éxito');
+        return redirect()->route('menbresias.admin.index')->with('mensaje', 'Menbresia Agregado Con Éxito');
     }
 
     /**
@@ -140,7 +140,7 @@ class MenbresiaController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('menbresias.index')->with('mensaje', 'Menbresia Editado Con Éxito');
+        return redirect()->route('menbresias.admin.index')->with('mensaje', 'Menbresia Editado Con Éxito');
     }
 
     /**
@@ -167,9 +167,9 @@ class MenbresiaController extends Controller
             $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
-            return redirect()->route('menbresias.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('menbresias.admin.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('menbresias.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('menbresias.admin.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

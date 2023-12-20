@@ -23,7 +23,7 @@
                                         <!--  -->
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
-                                            <input class="form-control form-control-lg" type="text" name="nombre"
+                                            <input class="form-control form-control-lg" type="text" name="nombre" required
                                                 value="{{ $menbresia->nombre }}" placeholder="Ingrese el nombre del tipo de pago"/>
                                             @error('nombre')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -32,7 +32,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Precio</label>
                                             <input class="form-control form-control-lg" type="decimal" name="precio"
-                                                value="{{ $menbresia->precio }}" placeholder="00.00" />
+                                                value="{{ $menbresia->precio }}" placeholder="00.00" required/>
                                             @error('precio')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -40,7 +40,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Periodo</label>
                                             <input class="form-control form-control-lg" type="numeric" name="periodo"
-                                                value="{{ $menbresia->periodo }}" placeholder="" 
+                                                value="{{ $menbresia->periodo }}" required
                                                 placeholder="Cantidad de días..."/>
                                             @error('periodo')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Imagen</label>
-                                            <input class="form-control" type="file" name="imagen" />
+                                            <input class="form-control" type="file" name="imagen" required/>
                                         </div>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="btn btn-lg btn-primary">Guardar</button>

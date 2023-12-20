@@ -7,7 +7,7 @@
                 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                     <div class="d-table-cell align-middle">
                         <div class="text-center mt-4">
-                            <h1 class="h2">Modificar Categorias</h1>
+                            <h1 class="h2">Modificar Pagos</h1>
                             <p class="lead">
                                 Asegurese de ingresar los datos correctos
                             </p>
@@ -26,7 +26,7 @@
                                             <label class="form-label">Nombre</label>
                                             <input class="form-control form-control-lg" type="text" name="nombre"
                                                 value="{{ $categoria->nombre }}"
-                                                placeholder="Ingrese el nombre del producto" />
+                                                placeholder="Ingrese el nombre del producto"  required/>
                                             @error('nombre')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror

@@ -9,6 +9,7 @@ use App\Models\categoria;
 use App\Models\Proveedor;
 use App\Exports\ProductosExport;
 use App\Exports\ProveedoresExport;
+use App\Models\Subcategoria;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
@@ -22,8 +23,8 @@ class ReporteController extends Controller
             return Excel::download(new ProductosExport, 'productos.xlsx');
         } else {
             $productos = producto::all();
-            $categorias = categoria::get();
-            $pdf = PDF::loadView('administrador.reportes.producto', compact('productos', 'categorias'));
+            $subcategorias = Subcategoria::get();
+            $pdf = PDF::loadView('administrador.reportes.producto', compact('productos', 'subcategorias'));
             return $pdf->stream();
         }
     }

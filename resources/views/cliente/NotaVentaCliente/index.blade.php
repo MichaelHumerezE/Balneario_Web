@@ -69,10 +69,12 @@
                                                 <a href="{{ route('notaVentasCliente.show', $notaVenta->id) }}"
                                                     class="btn btn-primary"><i class="fa fa-align-justify"></i> Detalles</a>
                                             </div>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('notaVentasCliente.edit', $notaVenta->id) }}"
-                                                    class="btn btn-primary"><i class="fa fa-file"></i> Factura</a>
-                                            </div>
+                                            @if ($pago->estado == 1)
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a href="{{ route('notaVentasCliente.edit', $notaVenta->id) }}"
+                                                        class="btn btn-primary"><i class="fa fa-file"></i> Factura</a>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endif
@@ -87,10 +89,11 @@
         </div>
         <div class="fixed bottom-4 right-4 z-50">
             <div class="fixed bottom-4 right-4 z-50">
-                <div class="p-4 text-lg font-bold text-black rounded-lg bg-blue-500 dark:bg-gray-800 dark:text-gray-300" role="alert">
+                <div class="p-4 text-lg font-bold text-black rounded-lg bg-blue-500 dark:bg-gray-800 dark:text-gray-300"
+                    role="alert">
                     <span class="font-medium">Total de visitas para esta página: </span>{{ $pageVisitsCount }}
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 @endsection

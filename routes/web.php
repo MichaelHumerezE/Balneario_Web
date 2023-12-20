@@ -42,6 +42,7 @@ use App\Http\Controllers\PagoAdminController;
 use App\Http\Controllers\PagoClienteController;
 use App\Http\Controllers\SubcategoriaController;
 use App\Http\Controllers\UrlCallBackController;
+use App\Http\Controllers\BusquedaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/buscarCliente', [BusquedaController::class,'buscar'])->name('buscar.cliente');
+Route::get('/buscarAdmin', [BusquedaController::class,'buscarAdmin'])->name('buscar.admin');
 
 Route::prefix('/administrador')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
@@ -82,11 +86,11 @@ Route::prefix('/administrador')->group(function () {
 
 Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
-    Route::resource('/categoriaShow', CategoriaShowController::class);
-    Route::resource('/catalogo', CatalogoController::class);
+    Route::resource('/categoriaShow', CategoriaShowController::class)->names(['index' => 'categoria.cliente.index']);
+    Route::resource('/catalogo', CatalogoController::class)->names(['index' => 'catalogo.cliente.index']);
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('/pagosCliente', PagoClienteController::class);
-        Route::resource('/detalleCarrito', DetalleCarritoController::class);
+        Route::resource('/detalleCarrito', DetalleCarritoController::class)->names(['index' => 'detalleCarrito.cliente.index']);
         Route::resource('/pagos', PagoController::class);
         Route::resource('/notaVentasCliente', NotaVentaClienteController::class);
     });
@@ -101,8 +105,8 @@ Route::post('/acceso', [AccesoController::class, 'login'])->name('acceso.login')
 Route::get('/cierreSesion', [CierreSesionController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('/administrador/empleados', EmpleadoController::class);
-    Route::resource('/administrador/clientes', ClienteController::class);
+    Route::resource('/administrador/empleados', EmpleadoController::class)->names(['index' => 'empleado.admin.index']);
+    Route::resource('/administrador/clientes', ClienteController::class)->names(['index' => 'cliente.admin.index']);
     Route::resource('/perfil', PerfilController::class);
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
@@ -110,14 +114,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/carritosClientes', CarritoCliente::class);
     Route::resource('/administrador/detallesCarritosClientes', DetalleCarritoCliente::class);
     Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
-    Route::resource('/administrador/menbresias', MenbresiaController::class);
+    Route::resource('/administrador/menbresias', MenbresiaController::class)->names(['index' => 'menbresia.admin.index']);
     Route::resource('/administrador/promociones', PromocionController::class);
     Route::resource('/administrador/notaVentas', NotaVentaController::class);
     Route::resource('/administrador/notaIngreso', NotaingresoController::class);
     Route::resource('/administrador/detalleNotaIngreso', DetallenotaingresoController::class);
-    Route::resource('/administrador/categoria', CategoriaController::class);
-    Route::resource('/administrador/producto', ProductoController::class);
-    Route::resource('/administrador/subcategorias', SubcategoriaController::class);
+    Route::resource('/administrador/categoria', CategoriaController::class)->names(['index' => 'categoria.admin.index']);
+    Route::resource('/administrador/producto', ProductoController::class)->names(['index' => 'producto.admin.index']);
+    Route::resource('/administrador/subcategorias', SubcategoriaController::class)->names(['index' => 'subcategoria.admin.index']);
     Route::get('/administrador/home', [App\Http\Controllers\HomeController::class, 'index'])->name('administrador');
     Route::resource('/administrador/notaBaja', NotabajaController::class);
     Route::resource('/administrador/detalleNotaBaja', DetallenotabajaController::class);

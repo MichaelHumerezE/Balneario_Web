@@ -151,9 +151,9 @@ class CategoriaController extends Controller
             $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
-            return redirect()->route('categoria.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('categoria.admin.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('categoria.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('categoria.admin.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

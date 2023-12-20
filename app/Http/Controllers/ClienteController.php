@@ -74,7 +74,7 @@ class ClienteController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return redirect()->route('clientes.index')->with('mensaje', 'cliente Agregado Con Éxito');
+        return redirect()->route('clientes.admin.index')->with('mensaje', 'cliente Agregado Con Éxito');
     }
 
     /**
@@ -124,7 +124,7 @@ class ClienteController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return redirect()->route('clientes.index')->with('mensaje', 'Datos Actualizados');
+        return redirect()->route('clientes.admin.index')->with('mensaje', 'Datos Actualizados');
     }
 
     /**
@@ -151,9 +151,9 @@ class ClienteController extends Controller
             $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
-            return redirect()->route('clientes.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('clientes.admin.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('clientes.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('clientes.admin.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

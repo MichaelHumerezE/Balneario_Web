@@ -395,7 +395,7 @@
             labels: d_etiquetas,
             datasets: [{
                 data: d_conjuntoDatos,
-                label: "Kgs de Residuos Recogidos",
+                label: "Ganancia Generada en Ventas",
                 borderColor: "#4e73df",
                 fill: true
             }]

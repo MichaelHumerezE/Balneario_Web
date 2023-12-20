@@ -16,11 +16,12 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Stock</th>
                 <th>Precio</th>
-                <th>Marca</th>
+                <th>Subcategoria</th>
                 <th>Categoria</th>
             </tr>
         </thead>
@@ -28,20 +29,13 @@
             @foreach ($productos as $producto)
                 <tr>
                     <td>{{ $producto->id }}</td>
-                    <td>{{ $producto->name }}</td>
+                    <td><img src="{{url($producto->url)}}" alt="" width="75"></td>
+                    <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->descripcion }}</td>
                     <td>{{ $producto->stock }}</td>
-                    <td>{{ $producto->precioUnitario }}</td>
-                    @foreach ($marcas as $marca)
-                        @if ($marca->id == $producto->idmarca)
-                            <td>{{ $marca->nombre }}</td>
-                        @endif
-                    @endforeach
-                    @foreach ($categorias as $categoria)
-                        @if ($categoria->id == $producto->idcategoria)
-                            <td>{{ $categoria->nombre }}</td>
-                        @endif
-                    @endforeach
+                    <td>{{ $producto->precio }}</td>
+                    <td>{{$producto->subcategoria->nombre}}</td>
+                    <td>{{$producto->subcategoria->categoria->nombre}}</td>
                 </tr>
             @endforeach
         </tbody>

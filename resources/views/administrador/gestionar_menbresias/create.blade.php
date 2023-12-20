@@ -26,7 +26,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
                                             <input class="form-control form-control-lg" type="text" name="nombre"
-                                                placeholder="Ingrese el nombre del producto" />
+                                                placeholder="Ingrese el nombre del producto" required/>
                                             @error('nombre')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -34,7 +34,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Precio De Venta</label>
                                             <input class="form-control form-control-lg" type="decimal" name="precio"
-                                                placeholder="00.00" />
+                                                placeholder="00.00" required />
                                             @error('precio')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -42,14 +42,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">Periodo</label>
                                             <input class="form-control form-control-lg" type="numeric" name="periodo"
-                                                placeholder="Cantidad de días..." />
+                                                placeholder="Cantidad de días..." required/>
                                             @error('periodo')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Imagen</label>
-                                            <input class="form-control" type="file" name="imagen" />
+                                            <input class="form-control" type="file" name="imagen" required/>
                                         </div>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="btn btn-lg btn-primary">Guardar</button>

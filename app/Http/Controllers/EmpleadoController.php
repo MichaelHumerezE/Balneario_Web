@@ -75,7 +75,7 @@ class EmpleadoController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return redirect()->route('empleados.index')->with('mensaje', 'Empleado Agregado Con Éxito');
+        return redirect()->route('empleados.admin.index')->with('mensaje', 'Empleado Agregado Con Éxito');
     }
 
     /**
@@ -125,7 +125,7 @@ class EmpleadoController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return redirect()->route('empleados.index')->with('mensaje', 'Datos Actualizados');
+        return redirect()->route('empleados.admin.index')->with('mensaje', 'Datos Actualizados');
     }
 
     /**
@@ -152,9 +152,9 @@ class EmpleadoController extends Controller
             $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
-            return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('empleados.admin.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('empleados.admin.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

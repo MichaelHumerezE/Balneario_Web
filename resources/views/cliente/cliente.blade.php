@@ -52,9 +52,10 @@
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="{{ asset('cliente/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('cliente/css/font-awesome.min.css') }}">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('cliente/css/style.css') }}" />
+    <link id="estilos-tema" type="text/css" rel="stylesheet" href="{{ asset('cliente/css/style.css') }}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,13 +63,44 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <style>
+        .boton-tema {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-tema:hover {
+            background-color: #0056b3;
+            /* Color de fondo al pasar el mouse */
+        }
+
+        /* Estilo del ícono */
+        .boton-tema i {
+            font-size: 24px;
+        }
+    </style>
 
 </head>
 
 <body>
 
     <!-- **************************************************************************************************************************************************************    -->
-
+    <button id="botonTema" class="boton-tema">
+        <i id="iconoTema" class="fa fa-sun-o"></i>
+    </button>
     <!-- HEADER -->
     <header>
         <!-- TOP HEADER -->
@@ -110,7 +142,7 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="{{route('home')}}" class="logo">
+                            <a href="{{ route('home') }}" class="logo">
                                 <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}"
                                     width=190px>
                             </a>
@@ -120,14 +152,9 @@
                     <!-- SEARCH BAR -->
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form>
-                                <select class="input-select">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Category 01</option>
-                                    <option value="1">Category 02</option>
-                                </select>
-                                <input class="input" placeholder="Search here">
-                                <button class="search-btn">Search</button>
+                            <form action="{{ route('buscar.cliente') }}" method="GET">
+                                <input class="input" name="query" placeholder="Buscar">
+                                <button type="submit" class="search-btn">Search</button>
                             </form>
                         </div>
                     </div>
@@ -197,7 +224,7 @@
                                             <h5>SUBTOTAL: Bs {{ $total }}</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
+                                            <a href="{{ route('detalleCarrito.cliente.index') }}">View Cart</a>
                                             @if ($c == 0)
                                                 <a href="#">Sin productos <i
                                                         class="fa fa-arrow-circle-right"></i></a>
@@ -245,12 +272,13 @@
             <div id="responsive-nav">
                 <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
-                    <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="{{route('home')}}">Home</a></li>
+                    <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a
+                            href="{{ route('home') }}">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
-                            href="{{ route('catalogo.index') }}">Catálogo</a></li>
+                            href="{{ route('catalogo.cliente.index') }}">Catálogo</a></li>
                     <li
                         class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}">
-                        <a href="{{ route('categoriaShow.index') }}">Subcategorías</a>
+                        <a href="{{ route('categoria.cliente.index') }}">Subcategorías</a>
                     </li>
                     @auth
                         <li
@@ -297,9 +325,12 @@
                         <div class="footer">
                             <h3 class="footer-title">Acerca de Nosotros</h3>
                             <p>
-                                Descubre la serenidad en Playa Caribe, un refugio de bienestar en medio de la naturaleza. Disfruta de piscinas relajantes, tratamientos rejuvenecedores y momentos de tranquilidad. ¡Bienvenido a tu escape perfecto!</p>
+                                Descubre la serenidad en Playa Caribe, un refugio de bienestar en medio de la
+                                naturaleza. Disfruta de piscinas relajantes, tratamientos rejuvenecedores y momentos de
+                                tranquilidad. ¡Bienvenido a tu escape perfecto!</p>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fa fa-map-marker"></i>_Cuadras de UE. Honorato Mejia Cuellar, 9no anillo 6, Santa Cruz de la Sierra</a></li>
+                                <li><a href="#"><i class="fa fa-map-marker"></i>_Cuadras de UE. Honorato Mejia
+                                        Cuellar, 9no anillo 6, Santa Cruz de la Sierra</a></li>
                                 <li><a href="#"><i class="fa fa-phone"></i>+591 70933211</a></li>
                                 <li><a href="#"><i class="fa fa-envelope-o"></i>PlayaCaribe@gmail.com</a></li>
                             </ul>
@@ -311,7 +342,9 @@
                             <h3 class="footer-title">Subcategorias</h3>
                             <ul class="footer-links">
                                 @foreach ($subcategorias as $subcategoria)
-                                <li><a href="{{route('categoriaShow.show', $subcategoria->id)}}">{{$subcategoria->nombre}}</a></li>
+                                    <li><a
+                                            href="{{ route('categoriaShow.show', $subcategoria->id) }}">{{ $subcategoria->nombre }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -345,7 +378,7 @@
                                     <li><a href="{{ url('/login') }}">Set Password</a></li>
                                 @endif
                                 <li><a href="{{ url('/cliente/pagosCliente') }}">Pagos</a></li>
-                                <li><a href="{{ route('detalleCarrito.index') }}">Ver Carrito</a></li>
+                                <li><a href="{{ route('detalleCarrito.cliente.index') }}">Ver Carrito</a></li>
                                 <li><a href="{{ route('notaVentasCliente.index') }}">Nota Ventas</a></li>
                                 <li><a href="#">Help</a></li>
                             </ul>
@@ -403,6 +436,8 @@
     <script src="{{ asset('admin/static/js/app.js') }}"></script>
 </body>
 <script>
+    const botonTema = document.getElementById('botonTema');
+    const iconoTema = document.getElementById('iconoTema');
     var botmanWidget = {
         title: "Ecomerce",
         aboutText: "Ecomerce",
@@ -412,6 +447,20 @@
         bubbleBackground: "#CC0000",
         aboutLink: '/home'
     };
+
+    botonTema.addEventListener('click', function() {
+        const estilos = document.getElementById('estilos-tema');
+        // Si los estilos actuales son los estilos claros, cambiar a estilos oscuros
+        if (estilos.getAttribute('href') === "{{ asset('cliente/css/style.css') }}") {
+            estilos.setAttribute('href', "{{ asset('cliente/css/styleBlack.css') }}");
+            iconoTema.classList.remove('fa', 'fa-moon-o'); // Cambiar el ícono
+            iconoTema.classList.add('fa', 'fa-sun-o'); // Nuevo ícono para tema claro
+        } else { // Si los estilos actuales son los estilos oscuros, cambiar a estilos claros
+            estilos.setAttribute('href', "{{ asset('cliente/css/style.css') }}");
+            iconoTema.classList.remove('fa', 'fa-sun-o'); // Cambiar el ícono
+            iconoTema.classList.add('fa', 'fa-moon-o'); // Nuevo ícono para tema oscuro
+        }
+    });
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 

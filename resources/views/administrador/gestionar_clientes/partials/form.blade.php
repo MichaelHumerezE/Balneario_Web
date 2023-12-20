@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-12">
         <div class="form-floating">
-            <input type="text" placeholder="name" class="form-control" name="name" required  pattern="[a-zA-Z]+" title="Solo se permiten letras"
+            <input type="text" placeholder="name" class="form-control" name="name" required title="Solo se permiten letras"
                 value="{{ isset($cliente) ? $cliente->name : old('name') }}">
             <label>Nombre</label>
         </div>
