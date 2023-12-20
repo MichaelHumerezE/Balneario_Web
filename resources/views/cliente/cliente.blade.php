@@ -51,9 +51,10 @@
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="{{ asset('cliente/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('cliente/css/font-awesome.min.css') }}">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('cliente/css/style.css') }}" />
+    <link id="estilos-tema" type="text/css" rel="stylesheet" href="{{ asset('cliente/css/style.css') }}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,13 +62,42 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <style>
+        .boton-tema {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
 
+        .boton-tema:hover {
+            background-color: #0056b3; /* Color de fondo al pasar el mouse */
+        }
+
+        /* Estilo del ícono */
+        .boton-tema i {
+            font-size: 24px;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- **************************************************************************************************************************************************************    -->
-
+    <button id="botonTema" class="boton-tema">
+        <i id="iconoTema" class="fa fa-sun-o"></i>
+    </button>
     <!-- HEADER -->
     <header>
         <!-- TOP HEADER -->
@@ -402,8 +432,11 @@
     <script src="{{ asset('cliente/js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('cliente/js/main.js') }}"></script>
     <script src="{{ asset('admin/static/js/app.js') }}"></script>
+
 </body>
 <script>
+    const botonTema = document.getElementById('botonTema');
+    const iconoTema = document.getElementById('iconoTema');
     var botmanWidget = {
         title: "Ecomerce",
         aboutText: "Ecomerce",
@@ -413,6 +446,21 @@
         bubbleBackground: "#CC0000",
         aboutLink: '/home'
     };
+
+    botonTema.addEventListener('click', function() {
+    const estilos = document.getElementById('estilos-tema');
+    // Si los estilos actuales son los estilos claros, cambiar a estilos oscuros
+    if (estilos.getAttribute('href') === "{{ asset('cliente/css/style.css') }}") {
+        estilos.setAttribute('href', "{{ asset('cliente/css/styleBlack.css') }}");
+        iconoTema.classList.remove('fa', 'fa-moon-o'); // Cambiar el ícono
+        iconoTema.classList.add('fa', 'fa-sun-o'); // Nuevo ícono para tema claro
+    } else { // Si los estilos actuales son los estilos oscuros, cambiar a estilos claros
+        estilos.setAttribute('href', "{{ asset('cliente/css/style.css') }}");
+        iconoTema.classList.remove('fa', 'fa-sun-o'); // Cambiar el ícono
+        iconoTema.classList.add('fa', 'fa-moon-o'); // Nuevo ícono para tema oscuro
+    }
+});
+
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
