@@ -92,8 +92,8 @@ Route::prefix('/cliente')->group(function () {
     });
 });
 
-Route::get('/registro', [RegistroController::class, 'show']);
-Route::post('/registro', [RegistroController::class, 'register']);
+Route::get('/registro', [RegistroController::class, 'show'])->name('register');
+Route::post('/registro', [RegistroController::class, 'register'])->name('register.registro');
 
 Route::get('/acceso', [AccesoController::class, 'show'])->name('acceso');
 Route::post('/acceso', [AccesoController::class, 'login'])->name('acceso.login');
@@ -130,4 +130,3 @@ Route::get('/index', function () {
 });
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, "handle"]);
-Route::resource('/urlCallback', UrlCallBackController::class);

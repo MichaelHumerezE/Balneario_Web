@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ApiUsuarioController;
 use App\Http\Controllers\Api\ApiTipoPagoController;
 use App\Http\Controllers\Api\ApiPagoController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\UrlCallBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ use App\Http\Controllers\Api\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('/urlCallback', UrlCallBackController::class);
