@@ -33,16 +33,9 @@
     </div>
     <div class="col-12">
         <div class="form-floating">
-            <input type="number" placeholder="celular" class="form-control" name="celular"
-                value="{{ isset($perfil) ? $perfil->celular : old('celular') }}">
+            <input type="number" placeholder="telefono" class="form-control" name="telefono"
+                value="{{ isset($perfil) ? $perfil->telefono : old('telefono') }}">
             <label>Teléfono</label>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="form-floating">
-            <input type="text" placeholder="domicilio" class="form-control" name="domicilio"
-                value="{{ isset($perfil) ? $perfil->domicilio : old('domicilio') }}">
-            <label>Domicilio</label>
         </div>
     </div>
     <div class="col-12">
@@ -52,29 +45,4 @@
             <label>E-Mail</label>
         </div>
     </div>
-    @if ($perfil->tipoc == 1)
-        <input type="hidden" name="tipoc" class="form-control" id="exampleInputPassword1" value="1">
-        <input type="hidden" name="tipoe" class="form-control" id="exampleInputPassword1" value="0">
-    @else
-        <div class="col-12">
-            <h5>Estado</h5>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="estadoemp" id="flexRadioDefault1" value="Inactivo"
-                    @if ((isset($perfil) ? $perfil->estadoemp : old('estadoemp')) == 'Inactivo') checked @endif>
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Inactivo
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="estadoemp" id="flexRadioDefault1" value="Activo"
-                    @if ((isset($perfil) ? $perfil->estadoemp : old('estadoemp')) == 'Activo') checked @endif>
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Activo
-                </label>
-            </div>
-        </div>
-        <input type="hidden" name="tipoc" class="form-control" id="exampleInputPassword1" value="0">
-        <input type="hidden" name="tipoe" class="form-control" id="exampleInputPassword1" value="1">
-    @endif
-
 </div>

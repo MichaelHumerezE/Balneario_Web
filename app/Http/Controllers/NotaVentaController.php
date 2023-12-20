@@ -7,7 +7,9 @@ use App\Http\Requests\UpdateNotaVentaRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
+use App\Models\Pago;
 use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -138,36 +140,26 @@ class NotaVentaController extends Controller
      */
     public function destroy($id)
     {
-        /*//Factura
-        $factura = factura::where('id_nota_venta', $id)->first();
-        $user = User::findOrfail($factura->id_cliente);
-        $nota_venta = NotaVenta::findOrFail($factura->id_nota_venta);
-        $pago = Pago::findOrfail($nota_venta->id_pago);
-        $tipoPago = TipoPago::findOrFail($pago->id_tipoPago);
+        //Factura
+        $notaVenta = NotaVenta::findOrFail($id);
+        $usuario = User::findOrfail($notaVenta->usuario_id);
+        $pago = Pago::where('nota_venta_id', $notaVenta->id)->first();
         $productos = Producto::get();
-        $carrito = Carrito::findOrFail($nota_venta->id_carrito);
-        $detallesCarritos = DetalleCarrito::get()->where('idCarrito', $carrito->id);
+        $detallesNotaVenta = DetalleNotaVenta::get()->where('nota_venta_id', $notaVenta->id);
         //Bitacora
         $request = Request::capture();
         $id2 = Auth::id();
-        $user = User::where('iduser', $id2)->first();
-        $tipo = "default";
-        if ($user->tipoe == 1) {
-            $tipo = "Empleado";
-        }
-        if ($user->tipoc == 1) {
-            $tipo = "Cliente";
-        }
+        $user = User::findOrFail($id2);
         $action = "Generó una factura de un nota_venta";
         $bitacora = Bitacora::create();
-        $bitacora->tipou = $tipo;
+        $bitacora->tipou = $user->tipo;
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return view('administrador.gestionar_nota_ventas.factura', compact('factura', 'user', 'tipoPago', 'productos', 'detallesCarritos', 'pago'));*/
+        return view('administrador.gestionar_nota_ventas.factura', compact('notaVenta', 'usuario', 'productos', 'detallesNotaVenta', 'pago'));
     }
 
 }

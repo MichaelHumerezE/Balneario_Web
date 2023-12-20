@@ -25,8 +25,10 @@ class StoreMenbresiaRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'qr' => '',
-            'nroCta' => 'required',
+            'precio' => 'required',
+            'imagen' => 'required',
+            'url' => '',
+            'periodo' => 'required'
         ];
     }
 }

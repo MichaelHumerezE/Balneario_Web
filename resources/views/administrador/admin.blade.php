@@ -22,7 +22,7 @@
     <!--  Links de template -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}" />
+    <link rel="shortcut icon" href="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg')  }}" />
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 

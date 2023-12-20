@@ -24,15 +24,11 @@ class PasswordController extends Controller
     public function index()
     {
         if (auth()->user()) {
-            $user = auth()->user()->id;
-            $persona = Persona::where('iduser', $user)->first();
-            $TipoC = $persona->tipoc;
-            $TipoE = $persona->tipoe;
-            if ($TipoC == 1) {
-                return redirect('/cliente/home');
+            if (auth()->user()->tipo == 'Cliente') {
+                return redirect('cliente/home');
             } else {
-                if ($TipoE == 1) {
-                    return redirect('/administrador/home');
+                if (auth()->user()->tipo == 'Empleado') {
+                    return redirect('administrador/home');
                 }
             }
         }
@@ -78,12 +74,11 @@ class PasswordController extends Controller
      */
     public function edit($id)
     {
-        $perfil = User::find($id);
-        $persona = Persona::find($id);
-        if ($persona->tipoc == 1) {
+        $perfil = User::findOrFail($id);
+        if ($perfil->tipo == 'Cliente') {
             $productos = Producto::get();
-            $carrito = Carrito::where('idCliente', auth()->user()->id);
-            $carrito = $carrito->where('estado', 1)->first();
+            $carrito = Carrito::where('cliente_id', auth()->user()->id);
+            $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
             return view('perfilC.editPass', compact('perfil', 'detallesCarrito', 'carrito', 'productos'));
         } else {
@@ -100,33 +95,24 @@ class PasswordController extends Controller
      */
     public function update(UpdatePasswordRequest $request, $id)
     {
-        $perfil = User::find($id);
+        $perfil = User::findOrFail($id);
         $perfil->update($request->validated());
         //Bitacora
         $id2 = Auth::id();
-        $user = Persona::where('iduser', $id2)->first();
-        $tipo = "default";
-        if ($user->tipoe == 1) {
-            $tipo = "Empleado";
-        }
-        if ($user->tipoc == 1) {
-            $tipo = "Cliente";
-        }
+        $user = User::where('id', $id2)->first();
         $action = "Cambio de contraseña de la cuenta personal";
         $bitacora = Bitacora::create();
-        $bitacora->tipou = $tipo;
+        $bitacora->tipou = $user->tipo;
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        $TipoC = $user->tipoc;
-        $TipoE = $user->tipoe;
-        if ($TipoC == 1) {
+        if ($user->tipo == 'Cliente') {
             return redirect('/cliente/home')->with('message', 'Se ha actualizado los datos correctamente.');
         } else {
-            if ($TipoE == 1) {
+            if ($user->tipo == 'Empleado') {
                 return redirect('/administrador/home')->with('message', 'Se ha actualizado los datos correctamente.');
             }
         }

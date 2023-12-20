@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Factura</title>
+    <title>notaVenta</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg')  }}" />
 
     <!-- Invoice styling -->
     <style>
@@ -126,12 +126,12 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}" alt="Company logo"
-                                    style="width: 100%; max-width: 300px" />
+                                <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}"
+                                    alt="Company logo" style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
-                                Invoice #: {{ $factura->id }}<br />
-                                Created: {{ $factura->fechaHora }}<br />
+                                Invoice #: {{ $notaVenta->id }}<br />
+                                Created: {{ $notaVenta->fecha_hora }}<br />
                             </td>
                         </tr>
                     </table>
@@ -143,9 +143,9 @@
                     <table>
                         <tr>
                             <td>
-                                Ecommerce, Inc.<br />
+                                Playa Caribe, Inc.<br />
                                 12345 Sunny Road<br />
-                                NIT: {{ $factura->NIT }}
+                                NIT: 453212411
                             </td>
 
                             <td>
@@ -166,10 +166,10 @@
             </tr>
 
             <tr class="details">
-                <td>{{ $tipoPago->nombre }}</td>
+                <td>Pago Facil</td>
                 <td></td>
                 <td></td>
-                <td>{{ $pago->idTrans }}</td>
+                <td>{{ $pago->pago_facil_id }}</td>
             </tr>
 
             <tr class="heading">
@@ -178,38 +178,27 @@
                 <td>Precio Unitario (Bs)</td>
                 <td>Total (Bs)</td>
             </tr>
-            @foreach ($detallesCarritos as $detalleCarrito)
-                @foreach ($productos as $producto)
-                    @if ($detalleCarrito->idProducto == $producto->id)
-                        <tr class="item">
-                            <td>{{ $producto->name }}</td>
-                            <td>{{ $detalleCarrito->cantidad }}</td>
-                            <td>{{ $detalleCarrito->precio }} Bs</td>
-                            <td>{{ $detalleCarrito->precio * $detalleCarrito->cantidad }} Bs</td>
-                        </tr>
-                    @endif
-                @endforeach
+            @foreach ($detallesNotaVenta as $detalleNotaVenta)
+                <tr class="item">
+                    <td>{{ $detalleNotaVenta->producto->nombre }}</td>
+                    <td>{{ $detalleNotaVenta->cantidad }}</td>
+                    <td>{{ $detalleNotaVenta->precio }} Bs</td>
+                    <td>{{ $detalleNotaVenta->precio * $detalleNotaVenta->cantidad }} Bs</td>
+                </tr>
             @endforeach
 
             <tr class="heading">
-                <td>Envío</td>
                 <td></td>
                 <td></td>
                 <td></td>
-            </tr>
-
-            <tr class="details">
-                <td>Costo</td>
                 <td></td>
-                <td></td>
-                <td>150 Bs</td>
             </tr>
 
             <tr class="total">
                 <td></td>
                 <td></td>
                 <th>Monto Final: </th>
-                <th>{{ $factura->montoTotal }} Bs</th>
+                <th>{{ $notaVenta->monto_total }} Bs</th>
             </tr>
         </table>
     </div>

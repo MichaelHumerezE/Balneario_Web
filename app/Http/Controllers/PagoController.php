@@ -169,6 +169,9 @@ class PagoController extends Controller
         $this->generarqrv2($pago);
 
         $pago = Pago::findOrFail($pago->id);
+        
+        $notaVenta->monto_total = $pago->monto_total;
+        $notaVenta->save();
 
         //Vista
         $carrito = Carrito::where('cliente_id', auth()->user()->id);

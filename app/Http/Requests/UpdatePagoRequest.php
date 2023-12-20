@@ -24,12 +24,14 @@ class UpdatePagoRequest extends FormRequest
     public function rules()
     {
         return [
-            'ctaOrd' => 'required',
-            'monto' => '',
-            'costoEnv' => 'required',
-            'idTrans' => 'required',
-            'fechaHora' => 'required',
-            'id_tipoPago' => 'required',
+            'monto_total' => '',
+            'fecha_hora' => 'required',
+            'estado' => 'required',
+            'tipo' => 'required',
+            'nota_venta_id' => 'required',
+            'imagen' => '',
+            'url' => '',
+            'pago_facil_id' => '',
         ];
     }
 }

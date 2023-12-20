@@ -8,9 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Electro - Ecommerce</title>
+    <title>Balneario - Playa Caribe</title>
 
-    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}" />
+    <link rel="shortcut icon" href="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg')  }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,7 +29,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href={{ url('/home') }} class="logo">
-                            <img src="{{ asset('img/Logo.png') }}" width=190px>
+                            <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg')  }}" width=100px>
                         </a>
                     </div>
                 </div>

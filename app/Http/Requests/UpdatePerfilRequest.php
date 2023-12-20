@@ -28,10 +28,7 @@ class UpdatePerfilRequest extends FormRequest
             'email' => ['required'],
             'ci' => ['required'],
             'sexo' => ['required'],
-            'celular' => ['required'],
-            'domicilio' => ['required'],
-            'tipoc' => ['required'],
-            'tipoe' => ['required'],
+            'telefono' => ['required'],
         ];
     }
 }

@@ -6,7 +6,9 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
+use App\Models\Pago;
 use App\Models\Producto;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NotaVentaClienteController extends Controller
@@ -18,11 +20,13 @@ class NotaVentaClienteController extends Controller
      */
     public function index()
     {
-        $detallesCarrito = DetalleCarrito::get();
+        $pagos = Pago::get();
         $productos = Producto::get();
-        $carritos = Carrito::where('cliente_id', auth()->user()->id)->paginate(10);
+        $detallesCarrito = DetalleCarrito::get();
+        $carrito = Carrito::where('cliente_id', auth()->user()->id);
+        $carrito = $carrito->where('estado', 0)->first();
         $notaVentas = NotaVenta::where('usuario_id', auth()->user()->id)->paginate(10);
-        return view('cliente.pedidos.index', compact('pedidos', 'carritos', 'detallesCarrito', 'productos'));
+        return view('cliente.NotaVentaCliente.index', compact('notaVentas', 'carrito', 'detallesCarrito', 'productos', 'pagos'));
     }
 
     /**
@@ -60,7 +64,7 @@ class NotaVentaClienteController extends Controller
         $detallesCarrito = DetalleCarrito::get();
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
-        return (view('cliente.pedidos.show', compact('pedido', 'carritoCliente', 'detallesCarritos', 'productos', 'detallesCarrito', 'carrito', 'direccion')));
+        return (view('cliente.NotaVentaCliente.show', compact('notaVentas', 'detallesCarrito', 'productos', 'detallesNotaVenta', 'carrito')));
 
     }
 
@@ -73,15 +77,12 @@ class NotaVentaClienteController extends Controller
     public function edit($id)
     {
         //Factura
-        /*$factura = factura::where('id_pedido', $id)->first();
-        $user = User::findOrfail($factura->id_cliente);
-        $pedido = pedido::findOrFail($factura->id_pedido);
-        $pago = Pago::findOrfail($pedido->id_pago);
-        $tipoPago = TipoPago::findOrFail($pago->id_tipoPago);
+        $notaVenta = NotaVenta::findOrFail($id);
+        $user = User::findOrfail($notaVenta->usuario_id);
+        $pago = Pago::where('nota_venta_id', $notaVenta->id)->first();
         $productos = producto::get();
-        $carrito = Carrito::findOrFail($pedido->id_carrito);
-        $detallesCarritos = DetalleCarrito::get()->where('idCarrito', $carrito->id);*/
-        return view('administrador.gestionar_pedidos.factura', compact('factura', 'user', 'tipoPago', 'productos', 'detallesCarritos', 'pago'));
+        $detallesNotaVenta = DetalleNotaVenta::get()->where('nota_venta_id', $notaVenta->id);
+        return view('Cliente.NotaVentaCliente.factura', compact('notaVenta', 'user', 'productos', 'detallesNotaVenta', 'pago'));
     }
 
     /**

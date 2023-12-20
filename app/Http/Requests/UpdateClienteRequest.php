@@ -28,12 +28,7 @@ class UpdateClienteRequest extends FormRequest
             'ci' => ['required'],
             'email' => ['required'],
             'sexo' => ['required'],
-            'celular' => ['required'],
-            'domicilio' => ['required'],
-            'estadocli' => [''],
-            'tipoc' => ['required'],
-            'tipoe' => ['required'],
-            'iduser' => [''],
+            'telefono' => ['required'],
         ];
     }
 }

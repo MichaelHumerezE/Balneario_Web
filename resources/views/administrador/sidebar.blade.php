@@ -2,7 +2,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="{{ url('/home') }}">
-            <span class="align-middle"><img src="{{ asset('img/Logo.png') }}" width=200px></span>
+            <span class="align-middle"><img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}" width=200px></span>
         </a>
         <!-- *******************************USUARIOS*********************************************** -->
         <ul class="sidebar-nav">
@@ -65,8 +65,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/pedidos') }}">
-                    <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Pedidos</span>
+                <a class="sidebar-link" href="{{ url('administrador/notaVentas') }}">
+                    <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Nota Ventas</span>
                 </a>
             </li>
 
@@ -77,8 +77,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/tiposPagos') }}">
-                    <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Metodo de
+                <a class="sidebar-link" href="{{ url('administrador/pagos') }}">
+                    <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">
                         Pagos</span>
                 </a>
             </li>

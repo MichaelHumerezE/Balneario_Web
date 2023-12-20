@@ -7,10 +7,10 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="breadcrumb-header">Pedidos</h3>
+                    <h3 class="breadcrumb-header">Nota Ventas</h3>
                     <ul class="breadcrumb-tree">
                         <li><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="active">Pedidos Realizados</li>
+                        <li class="active">Nota Ventas Realizados</li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="row">
                 <div class="pagination justify-content-end">
-                    {{ $carritos->links() }}
+                    {{ $notaVentas->links() }}
                 </div>
             </div>
             <div class="table-responsive">
@@ -38,11 +38,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Fecha - Hora</th>
+                            <th>NIT</th>
+                            <th>Fecha Hora</th>
+                            <th>Monto Total</th>
+                            <th>Nombre Cliente</th>
                             <th>Estado</th>
-                            <th>Fecha De Envío</th>
-                            <th>Fecha De Entrega</th>
-                            <th>Total Pagado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -50,23 +50,27 @@
                         <?php
                         $valor = 1;
                         ?>
-                        @foreach ($carritos as $carrito)
-                            @foreach ($pedidos as $pedido)
-                                @if ($carrito->id == $pedido->id_carrito and $carrito->estado == 0)
+                        @foreach ($notaVentas as $notaVenta)
+                            @foreach ($pagos as $pago)
+                                @if ($notaVenta->id == $pago->nota_venta_id)
                                     <tr>
                                         <th scope="row">{{ $valor++ }}</th>
-                                        <td>{{ $pedido->fechaHora }}</td>
-                                        <td>{{ $pedido->estado }}</td>
-                                        <td>{{ $pedido->fechaEnvio }}</td>
-                                        <td>{{ $pedido->fechaEntrega }}</td>
-                                        <td>{{ $pedido->total }}</td>
+                                        <td>{{ $notaVenta->nit }}</td>
+                                        <td>{{ $notaVenta->fecha_hora }}</td>
+                                        <td>{{ $notaVenta->monto_total }}</td>
+                                        <td>{{ $notaVenta->nombre_cliente }}</td>
+                                        @if ($pago->estado == 0)
+                                            <td>No Pagado</td>
+                                        @else
+                                            <td>Pagado</td>
+                                        @endif
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('pedidosCliente.show', $pedido->id) }}"
+                                                <a href="{{ route('notaVentasCliente.show', $notaVenta->id) }}"
                                                     class="btn btn-primary"><i class="fa fa-align-justify"></i> Detalles</a>
                                             </div>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('pedidosCliente.edit', $pedido->id) }}"
+                                                <a href="{{ route('notaVentasCliente.edit', $notaVenta->id) }}"
                                                     class="btn btn-primary"><i class="fa fa-file"></i> Factura</a>
                                             </div>
                                         </td>
@@ -79,7 +83,7 @@
             </div>
         </div>
         <div class="pagination justify-content-end">
-            {{ $carritos->links() }}
+            {{ $notaVentas->links() }}
         </div>
     </div>
 @endsection

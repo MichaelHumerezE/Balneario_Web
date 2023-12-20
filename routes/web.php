@@ -38,6 +38,7 @@ use App\Http\Controllers\DetallenotaingresoController;
 use App\Http\Controllers\MenbresiaController;
 use App\Http\Controllers\NotaVentaClienteController;
 use App\Http\Controllers\NotaVentaController;
+use App\Http\Controllers\PagoAdminController;
 use App\Http\Controllers\PagoClienteController;
 use App\Http\Controllers\SubcategoriaController;
 use App\Http\Controllers\UrlCallBackController;
@@ -121,6 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/notaBaja', NotabajaController::class);
     Route::resource('/administrador/detalleNotaBaja', DetallenotabajaController::class);
     Route::resource('/administrador/promoMail', PromoMailController::class);
+    Route::resource('/administrador/pagos', PagoAdminController::class);
 });
 
 Route::get('/index', function () {

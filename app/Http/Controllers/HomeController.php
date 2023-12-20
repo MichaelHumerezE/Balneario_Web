@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Carrito;
 use App\Models\Categoria;
 use App\Models\DetalleCarrito;
+use App\Models\NotaVenta;
 use App\Models\Producto;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -29,7 +32,18 @@ class HomeController extends Controller
         $productos = Producto::get();
         if (auth()->user()) {
             if (auth()->user()->tipo == 'Empleado') {
-                return view('administrador.home');
+                $usuarios = User::get();
+                $notaVentas = NotaVenta::get();
+                $productos = DB::select('select * from productos_vendidos');
+                $productos_cantidad = DB::select('select * from productos_vendidos_cantidad');
+                $dias = DB::select('select * from VentasXAll');
+                $mes = DB::select('select * from VentasXMes');
+                $anual = DB::select('select * from VentasXAnio');
+                $total = 0;
+                foreach ($notaVentas as $notaVenta) {
+                    $total += $notaVenta->monto_total;
+                }
+                return view('administrador.home', compact('usuarios', 'notaVentas', 'total', 'productos', 'productos_cantidad', 'dias', 'mes', 'anual'));
             }
             if (auth()->user()->tipo == 'Cliente') {
                 $carrito = Carrito::where('cliente_id', auth()->user()->id);

@@ -26,8 +26,8 @@ class StoreDetalleCarritoRequest extends FormRequest
         return [
             'cantidad' => '',
             'precio' => '',
-            'idCarrito' => '',
-            'idProducto' => ''
+            'carrito_id' => '',
+            'producto_id' => ''
         ];
     }
 }

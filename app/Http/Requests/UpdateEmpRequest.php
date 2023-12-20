@@ -28,13 +28,7 @@ class UpdateEmpRequest extends FormRequest
             'ci' => ['required'],
             'email' => ['required'],
             'sexo' => ['required'],
-            'celular' => ['required'],
-            'domicilio' => ['required'],
-            'salario' => ['required'],
-            'estadoemp' => ['required'],
-            'tipoc' => ['required'],
-            'tipoe' => ['required'],
-            'iduser' => [''],
+            'telefono' => ['required'],
         ];
     }
 }
