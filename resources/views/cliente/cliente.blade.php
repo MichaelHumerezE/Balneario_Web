@@ -118,14 +118,14 @@
                     <!-- SEARCH BAR -->
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form>
-                                <select class="input-select">
+                            <form action="{{ route('buscar.cliente') }}" method="GET">
+                                {{-- <select class="input-select">
                                     <option value="0">All Categories</option>
                                     <option value="1">Category 01</option>
                                     <option value="1">Category 02</option>
-                                </select>
-                                <input class="input" placeholder="Search here">
-                                <button class="search-btn">Search</button>
+                                </select> --}}
+                                <input class="input" name="query" placeholder="Buscar">
+                                <button type="submit" class="search-btn">Search</button>
                             </form>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                                             <h5>SUBTOTAL: Bs {{ $total }}</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
+                                            <a href="{{ route('detalleCarrito.cliente.index') }}">View Cart</a>
                                             @if ($c == 0)
                                                 <a href="#">Sin productos <i
                                                         class="fa fa-arrow-circle-right"></i></a>
@@ -245,10 +245,10 @@
                 <ul class="main-nav nav navbar-nav">
                     <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
-                            href="{{ route('catalogo.index') }}">Catálogo</a></li>
+                            href="{{ route('catalogo.cliente.index') }}">Catálogo</a></li>
                     <li
                         class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}">
-                        <a href="{{ route('categoriaShow.index') }}">Categorías</a>
+                        <a href="{{ route('categoria.cliente.index') }}">Categorías</a>
                     </li>
                     @auth
                         <li
@@ -346,7 +346,7 @@
                                     <li><a href="{{ url('/login') }}">Set Password</a></li>
                                 @endif
                                 <li><a href="{{ url('/cliente/AddressClient') }}">Address</a></li>
-                                <li><a href="{{ route('detalleCarrito.index') }}">View Cart</a></li>
+                                <li><a href="{{ route('detalleCarrito.cliente.index') }}">View Cart</a></li>
                                 <li><a href="{{ route('notaVentasCliente.index') }}">Orders</a></li>
                                 <li><a href="#">Help</a></li>
                             </ul>

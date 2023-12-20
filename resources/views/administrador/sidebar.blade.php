@@ -39,23 +39,23 @@
             </li>
 
             <li class="sidebar-item ">
-                <a class="sidebar-link" href="{{ url('administrador/producto') }}">
+                <a class="sidebar-link" href="{{ route('producto.admin.index') }}">
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Productos</span>
                 </a>
             </li>
             <li class="sidebar-item ">
-                <a class="sidebar-link" href="{{ route('categoria.index') }}">
+                <a class="sidebar-link" href="{{ route('categoria.admin.index') }}">
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Categorias</span>
                 </a>
             </li>
             <li class="sidebar-item ">
-                <a class="sidebar-link" href="{{ route('subcategorias.index') }}">
+                <a class="sidebar-link" href="{{ route('subcategoria.admin.index') }}">
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Subcategorias</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/menbresias') }}">
+                <a class="sidebar-link" href="{{ route('menbresia.admin.index') }}">
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Menbresias</span>
                 </a>
             </li>
