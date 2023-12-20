@@ -110,7 +110,7 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="/home" class="logo">
+                            <a href="{{route('home')}}" class="logo">
                                 <img src="{{ url('https://bucket-balneario-playa-caribe.s3.amazonaws.com/utils/Logo.jpg') }}"
                                     width=190px>
                             </a>
