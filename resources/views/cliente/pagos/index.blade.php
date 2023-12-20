@@ -7,7 +7,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="breadcrumb-header">Pagps</h3>
+                    <h3 class="breadcrumb-header">Pagos</h3>
                     <ul class="breadcrumb-tree">
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li class="active">Pagos Realizados</li>

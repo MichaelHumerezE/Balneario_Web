@@ -276,10 +276,10 @@ class PagoController extends Controller
         $fileName = time() . '.png';
 
         // Almacena los datos binarios en el bucket S3
-        Storage::disk('s3')->put($fileName, $binaryData, 'public');
+        Storage::disk('s3')->put('pagos/' . $fileName, $binaryData, 'public');
 
         // Obtiene la URL del archivo almacenado en S3
-        $qrCodeUrl = Storage::disk('s3')->url($fileName);
+        $qrCodeUrl = Storage::disk('s3')->url('pagos/' . $fileName);
 
         $pago = Pago::findOrFail($pago->id);
         $pago->pago_facil_id = $tcNroPago;

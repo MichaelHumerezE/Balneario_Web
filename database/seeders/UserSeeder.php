@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'sexo' => 'M',
             'telefono' => '60522212',
             'tipo' => 'Empleado',
-        ])->assignRole('Administrador');
+        ])->assignRole('Empleado');
 
         User::create([
             'name' => 'Byron Lewis',
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'sexo' => 'M',
             'telefono' => '60522222',
             'tipo' => 'Empleado',
-        ])->assignRole('Supervisor');
+        ])->assignRole('Empleado');
 
         User::create([
             'name' => 'Cassady Bridges',
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'sexo' => 'M',
             'telefono' => '60522223',
             'tipo' => 'Empleado',
-        ])->assignRole('RRHH');
+        ])->assignRole('Empleado');
 
         User::create([
             'name' => 'Dawn Buckley',
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'sexo' => 'M',
             'telefono' => '60522214',
             'tipo' => 'Empleado',
-        ])->assignRole('Marketing');
+        ])->assignRole('Empleado');
 
         User::create([
             'name' => 'Erica Mosley',
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'sexo' => 'M',
             'telefono' => '60522215',
             'tipo' => 'Empleado',
-        ])->assignRole('Almacenador');
+        ])->assignRole('Empleado');
 
         User::create([
             'name' => 'Flavia Kirkland',
@@ -99,8 +99,8 @@ class UserSeeder extends Seeder
            // 'expires_at' => '7',
         ]);
 
-        User::create([
-            'name' => 'Juan Carlos Contreras ',
+        $user = User::create([
+            'name' => 'Juan Carlos Contreras',
             'email' => 'm79832142l@gmail.com',
             'password' => '123456789',
             'ci' => '9866028',
@@ -108,6 +108,10 @@ class UserSeeder extends Seeder
             'telefono' => '60933372',
             'tipo' => 'Cliente',
         ]);
+
+        $user->created_at = '2023-12-06 17:28:17';
+        $user->updated_at = '2023-12-06 17:28:17';
+        $user->save();
 
     }
 }
