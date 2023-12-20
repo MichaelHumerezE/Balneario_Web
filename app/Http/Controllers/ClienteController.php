@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Bitacora;
+use App\Models\PageVisit;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -30,8 +31,16 @@ class ClienteController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Cliente-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $clientes = User::where('tipo', 'Cliente')->paginate(10); 
-        return view('administrador.gestionar_clientes.index', compact('clientes'));
+        return view('administrador.gestionar_clientes.index', compact('clientes', 'pageVisitsCount'));
     }
 
     /**

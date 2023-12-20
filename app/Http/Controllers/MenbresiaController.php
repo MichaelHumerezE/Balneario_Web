@@ -6,6 +6,7 @@ use App\Models\Menbresia;
 use App\Http\Requests\StoremenbresiaRequest;
 use App\Http\Requests\UpdatemenbresiaRequest;
 use App\Models\Bitacora;
+use App\Models\PageVisit;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -31,8 +32,16 @@ class MenbresiaController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Menbresia-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $menbresias = Menbresia::paginate(10);
-        return view('administrador.gestionar_menbresias.index', compact('menbresias'));
+        return view('administrador.gestionar_menbresias.index', compact('menbresias', 'pageVisitsCount'));
     }
 
     /**

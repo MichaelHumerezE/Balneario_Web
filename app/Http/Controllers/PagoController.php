@@ -10,6 +10,7 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
+use App\Models\PageVisit;
 use App\Models\Producto;
 use App\Models\Subcategoria;
 use App\Models\User;
@@ -33,7 +34,16 @@ class PagoController extends Controller
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get();
         $subcategorias = Subcategoria::get();
-        return view('cliente.metodoDePago.index', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito'));
+
+        //Visitas
+        $page = 'Checkout-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.metodoDePago.index', compact('productos', 'pageVisitsCount', 'subcategorias', 'carrito', 'detallesCarrito'));
     }
 
     /**
@@ -181,7 +191,16 @@ class PagoController extends Controller
         $detallesCarrito = DetalleCarrito::get();
 
         $subcategorias = Subcategoria::get();
-        return view('cliente.metodoDePago.create', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito', 'pago'));
+
+        //Visitas
+        $page = 'QR-Generado'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.metodoDePago.create', compact('productos', 'pageVisitsCount', 'subcategorias', 'carrito', 'detallesCarrito', 'pago'));
     }
 
     /**

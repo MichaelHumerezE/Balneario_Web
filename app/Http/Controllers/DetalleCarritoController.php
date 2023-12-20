@@ -6,6 +6,7 @@ use App\Models\DetalleCarrito;
 use App\Http\Requests\UpdateDetalleCarritoRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
+use App\Models\PageVisit;
 use App\Models\Producto;
 use App\Models\Subcategoria;
 use App\Models\User;
@@ -29,7 +30,15 @@ class DetalleCarritoController extends Controller
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::where('carrito_id', $carrito->id)->paginate(9);
         $subcategorias = Subcategoria::get();
-        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'subcategorias'));
+        //Visitas
+        $page = 'Carrito-Compras'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'subcategorias', 'pageVisitsCount'));
     }
 
     /**

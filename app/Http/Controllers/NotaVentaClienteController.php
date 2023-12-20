@@ -6,6 +6,7 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
+use App\Models\PageVisit;
 use App\Models\Pago;
 use App\Models\Producto;
 use App\Models\Subcategoria;
@@ -28,7 +29,15 @@ class NotaVentaClienteController extends Controller
         $carrito = $carrito->where('estado', 0)->first();
         $notaVentas = NotaVenta::where('usuario_id', auth()->user()->id)->paginate(10);
         $subcategorias = Subcategoria::get();
-        return view('cliente.NotaVentaCliente.index', compact('notaVentas', 'subcategorias', 'carrito', 'detallesCarrito', 'productos', 'pagos'));
+        //Visitas
+        $page = 'NotaVentaCliente-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.NotaVentaCliente.index', compact('notaVentas', 'pageVisitsCount', 'subcategorias', 'carrito', 'detallesCarrito', 'productos', 'pagos'));
     }
 
     /**
@@ -67,7 +76,15 @@ class NotaVentaClienteController extends Controller
         $carrito = Carrito::where('cliente_id', auth()->user()->id);
         $carrito = $carrito->where('estado', 0)->first();
         $subcategorias = Subcategoria::get();
-        return (view('cliente.NotaVentaCliente.show', compact('notaVentas', 'subcategorias', 'detallesCarrito', 'productos', 'detallesNotaVenta', 'carrito')));
+        //Visitas
+        $page = 'DetalleNotaVentaCliente-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.NotaVentaCliente.show', compact('notaVentas', 'pageVisitsCount', 'subcategorias', 'detallesCarrito', 'productos', 'detallesNotaVenta', 'carrito'));
 
     }
 

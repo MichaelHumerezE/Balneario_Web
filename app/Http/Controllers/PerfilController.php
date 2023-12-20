@@ -6,6 +6,7 @@ use App\Http\Requests\UpdatePerfilRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\PageVisit;
 use App\Models\Producto;
 use App\Models\Subcategoria;
 use App\Models\User;
@@ -81,9 +82,26 @@ class PerfilController extends Controller
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
             $subcategorias = Subcategoria::get();
-            return view('perfilC.edit', compact('perfil', 'subcategorias', 'detallesCarrito', 'carrito', 'productos'));
+
+            //Visitas
+            $page = 'Perfil-Cliente'; // Reemplaza con el nombre único de tu página
+            $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+            $pageVisitsCount = $pageVisits->visits;
+
+            // Incrementa el contador
+            $pageVisits->increment('visits');
+            //
+            return view('perfilC.edit', compact('perfil', 'pageVisitsCount', 'subcategorias', 'detallesCarrito', 'carrito', 'productos'));
         } else {
-            return view('perfil.edit', compact('perfil'));
+            //Visitas
+            $page = 'Perfil-Empleado'; // Reemplaza con el nombre único de tu página
+            $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+            $pageVisitsCount = $pageVisits->visits;
+
+            // Incrementa el contador
+            $pageVisits->increment('visits');
+            //
+            return view('perfil.edit', compact('perfil', 'pageVisitsCount'));
         }
     }
 

@@ -18,5 +18,12 @@
                 <i class="fa fa-check"></i> Hecho
             </Button>
         </div>
+        <div class="fixed bottom-4 right-4 z-50">
+            <div class="fixed bottom-4 right-4 z-50">
+                <div class="p-4 text-lg font-bold text-black rounded-lg bg-blue-500 dark:bg-gray-800 dark:text-gray-300" role="alert">
+                    <span class="font-medium">Total de visitas para esta página: </span>{{ $pageVisitsCount }}
+                </div>
+            </div>  
+        </div>
     </div>
 @endsection

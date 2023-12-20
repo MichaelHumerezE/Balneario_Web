@@ -29,6 +29,7 @@ class StoreClienteRequest extends FormRequest
             'email' => ['required', 'unique:users,email'],
             'sexo' => ['required'],
             'telefono' => ['required', 'unique:users,telefono'],
+            'tipo' => ['required'],
             'password' => ['required', 'min:8'],
             'password_confirmation' => ['required', 'same:password'],
         ];

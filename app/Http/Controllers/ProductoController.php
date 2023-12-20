@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
+use App\Models\PageVisit;
 use App\Models\Subcategoria;
 use App\Models\User;
 
@@ -33,8 +34,16 @@ class ProductoController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Producto-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $productos = Producto::paginate(10);
-        return view('administrador.gestionar_producto.index', compact('productos'));
+        return view('administrador.gestionar_producto.index', compact('productos', 'pageVisitsCount'));
     }
 
     /**

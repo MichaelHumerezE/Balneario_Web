@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterEmpRequest;
 use App\Http\Requests\UpdateEmpRequest;
 use App\Models\Bitacora;
+use App\Models\PageVisit;
 use App\Models\User;
 use App\Models\Persona;
 use Illuminate\Http\Request;
@@ -30,8 +31,16 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Empleado-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $empleados = User::where('tipo', 'Empleado')->paginate(10);
-        return view('administrador.gestionar_empleados.index', compact('empleados'));
+        return view('administrador.gestionar_empleados.index', compact('empleados', 'pageVisitsCount', 'pageVisitsCount'));
     }
 
     /**

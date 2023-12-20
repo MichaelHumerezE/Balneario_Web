@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\PageVisit;
 use App\Models\Pago;
 use App\Models\Producto;
 use App\Models\Subcategoria;
@@ -38,7 +39,16 @@ class PagoClienteController extends Controller
 
         $subcategorias = Subcategoria::get();
 
-        return view('cliente.pagos.index', compact('todosLosPagos', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
+        //Visitas
+        $page = 'PagosClientes-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+
+        return view('cliente.pagos.index', compact('todosLosPagos', 'pageVisitsCount', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
     }
 
     /**
@@ -78,7 +88,16 @@ class PagoClienteController extends Controller
         $carrito = $carrito->where('estado', 0)->first();
         $detallesCarrito = DetalleCarrito::get();
         $subcategorias = Subcategoria::get();
-        return view('cliente.pagos.show', compact('pago', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
+
+        //Visitas
+        $page = 'PagosQR-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('cliente.pagos.show', compact('pago', 'pageVisitsCount', 'subcategorias', 'productos', 'carrito', 'detallesCarrito'));
     }
 
     /**

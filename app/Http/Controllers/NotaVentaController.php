@@ -9,6 +9,7 @@ use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\DetalleNotaVenta;
 use App\Models\NotaVenta;
+use App\Models\PageVisit;
 use App\Models\Pago;
 use App\Models\Producto;
 use App\Models\User;
@@ -21,10 +22,10 @@ class NotaVentaController extends Controller
 {
     function __construct()
     {
-        /*$this->middleware('can:notaVentas.index', ['only' => 'index']);
+        $this->middleware('can:notaVentas.index', ['only' => 'index']);
         $this->middleware('can:notaVentas.show', ['only' => 'show']);
         $this->middleware('can:notaVentas.update', ['only' => ['edit', 'update']]);
-        $this->middleware('can:notaVentas.factura', ['only' => ['destroy']]);*/
+        $this->middleware('can:notaVentas.factura', ['only' => ['destroy']]);
     }
 
     /**
@@ -34,8 +35,16 @@ class NotaVentaController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'NotaVentaADM-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $nota_ventas = NotaVenta::paginate(10);
-        return (view('administrador.gestionar_nota_ventas.index', compact('nota_ventas')));
+        return (view('administrador.gestionar_nota_ventas.index', compact('nota_ventas', 'pageVisitsCount')));
     }
 
     /**

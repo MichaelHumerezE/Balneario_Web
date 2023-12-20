@@ -38,10 +38,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'categoria.update'])->syncRoles([$role1]);
         Permission::create(['name' => 'categoria.delete'])->syncRoles([$role1]);
 
-        Permission::create(['name' => 'subcategorias.index'])->syncRoles([$role1]);
-        Permission::create(['name' => 'subcategorias.create'])->syncRoles([$role1]);
-        Permission::create(['name' => 'subcategorias.update'])->syncRoles([$role1]);
-        Permission::create(['name' => 'subcategorias.delete'])->syncRoles([$role1]);
+        Permission::create(['name' => 'subcategoria.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'subcategoria.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'subcategoria.update'])->syncRoles([$role1]);
+        Permission::create(['name' => 'subcategoria.delete'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'menbresias.index'])->syncRoles([$role1]);
         Permission::create(['name' => 'menbresias.create'])->syncRoles([$role1]);

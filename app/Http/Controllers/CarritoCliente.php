@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\PageVisit;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\User;
@@ -18,9 +19,17 @@ class CarritoCliente extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'CarritosADM-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $carritos = Carrito::paginate(10);
         $clientes = User::get()->where('tipo', 'Cliente');
-        return view('administrador.gestionar_carrito_de_clientes.index', compact('clientes', 'carritos'));
+        return view('administrador.gestionar_carrito_de_clientes.index', compact('clientes', 'pageVisitsCount', 'carritos'));
     }
 
     /**

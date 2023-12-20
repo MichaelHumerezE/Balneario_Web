@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bitacora;
+use App\Models\PageVisit;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,9 +18,16 @@ class RoleController extends Controller
 
     public function index()
     {
-        //$users = Persona::where('tipoe', 1)->paginate(10);
-        $users = User::paginate(10);
-        return (view('administrador.roles.index', compact('users')));
+        //Visitas
+        $page = 'Rol-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        $users = User::where('tipo', 'Empleado')->paginate(10);
+        return (view('administrador.roles.index', compact('users', 'pageVisitsCount')));
     }
 
 
@@ -36,17 +44,10 @@ class RoleController extends Controller
         $role->syncPermissions($request->permisos);
         //Bitacora
         $id2 = Auth::id();
-        $user = Persona::where('iduser', $id2)->first();
-        $tipo = "default";
-        if ($user->tipoe == 1) {
-            $tipo = "Empleado";
-        }
-        if ($user->tipoc == 1) {
-            $tipo = "Cliente";
-        }
+        $user = User::findOrFail($id2);
         $action = "Creó un nuevo rol";
         $bitacora = Bitacora::create();
-        $bitacora->tipou = $tipo;
+        $bitacora->tipou = $user->tipo;
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
@@ -73,17 +74,10 @@ class RoleController extends Controller
         $user->roles()->sync($request->roles);
         //Bitacora
         $id2 = Auth::id();
-        $user2 = Persona::where('iduser', $id2)->first();
-        $tipo = "default";
-        if ($user2->tipoe == 1) {
-            $tipo = "Empleado";
-        }
-        if ($user2->tipoc == 1) {
-            $tipo = "Cliente";
-        }
+        $user2 = User::findOrFail($id2);
         $action = "Asignó un rol a un usuario";
         $bitacora = Bitacora::create();
-        $bitacora->tipou = $tipo;
+        $bitacora->tipou = $user2->tipo;
         $bitacora->name = $user2->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');

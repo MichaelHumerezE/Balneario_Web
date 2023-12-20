@@ -73,32 +73,15 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="celular"
+                                <label for="telefono"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Telefono') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="celular" type="integer"
-                                        class="form-control @error('celular') is-invalid @enderror" name="celular"
-                                        value="{{ old('celular') }}" required autocomplete="celular" autofocus>
+                                    <input id="telefono" type="integer"
+                                        class="form-control @error('telefono') is-invalid @enderror" name="telefono"
+                                        value="{{ old('telefono') }}" required autocomplete="telefono" autofocus>
 
-                                    @error('celular')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="domicilio"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Domicilio') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="domicilio" type="text"
-                                        class="form-control @error('domicilio') is-invalid @enderror" name="domicilio"
-                                        value="{{ old('domicilio') }}" required autocomplete="domicilio" autofocus>
-
-                                    @error('domicilio')
+                                    @error('telefono')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -149,12 +132,8 @@
                                         name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
-                            <input type="hidden" name="estadocli" class="form-control" id="estadocli"
-                                value="Activo">
-                            <input type="hidden" name="tipoc" class="form-control" id="exampleInputPassword1"
-                                value="1">
-                            <input type="hidden" name="tipoe" class="form-control" id="exampleInputPassword1"
-                                value="0">
+                            <input type="hidden" name="tipo" class="form-control" id="tipo"
+                                value="Cliente">
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

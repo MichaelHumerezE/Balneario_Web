@@ -6,6 +6,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\PageVisit;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\User;
@@ -80,9 +81,25 @@ class PasswordController extends Controller
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('perfilC.editPass', compact('perfil', 'detallesCarrito', 'carrito', 'productos'));
+
+            //Visitas
+            $page = 'Cambiar-Pass-Cliente'; // Reemplaza con el nombre único de tu página
+            $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+            $pageVisitsCount = $pageVisits->visits;
+
+            // Incrementa el contador
+            $pageVisits->increment('visits');
+            //
+            return view('perfilC.editPass', compact('perfil', 'pageVisitsCount', 'detallesCarrito', 'carrito', 'productos'));
         } else {
-            return view('perfil.editPass', compact('perfil'));
+            $page = 'Cambiar-Pass-Empleado'; // Reemplaza con el nombre único de tu página
+            $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+            $pageVisitsCount = $pageVisits->visits;
+
+            // Incrementa el contador
+            $pageVisits->increment('visits');
+            //
+            return view('perfil.editPass', compact('perfil', 'pageVisitsCount'));
         }
     }
 

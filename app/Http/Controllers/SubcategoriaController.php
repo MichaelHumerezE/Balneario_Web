@@ -6,6 +6,7 @@ use App\Http\Requests\StoresubcategoriaRequest;
 use App\Http\Requests\UpdatesubcategoriaRequest;
 use App\Models\Bitacora;
 use App\Models\Categoria;
+use App\Models\PageVisit;
 use App\Models\Subcategoria;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -18,10 +19,10 @@ class SubcategoriaController extends Controller
 {
     function __construct()
     {
-        /*$this->middleware('can:subcategoria.index', ['only' => 'index']);
+        $this->middleware('can:subcategoria.index', ['only' => 'index']);
         $this->middleware('can:subcategoria.create', ['only' => ['create', 'store']]);
         $this->middleware('can:subcategoria.update', ['only' => ['edit', 'update']]);
-        $this->middleware('can:subcategoria.delete', ['only' => ['destroy']]);*/
+        $this->middleware('can:subcategoria.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -31,8 +32,16 @@ class SubcategoriaController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Subcategoria-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $subcategorias = Subcategoria::paginate(10);
-        return view('administrador.gestionar_subcategorias.index', compact('subcategorias'));
+        return view('administrador.gestionar_subcategorias.index', compact('subcategorias', 'pageVisitsCount'));
     }
 
     /**

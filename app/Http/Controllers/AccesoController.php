@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\Bitacora;
+use App\Models\PageVisit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,15 @@ class AccesoController extends Controller
         if(Auth::check()){
             return redirect('/home');
         }
-        return view('auth.login');
+        //Visitas
+        $page = 'Login'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
+        return view('auth.login', compact('pageVisitsCount'));
     }
 
     public function login(LoginRequest $request)

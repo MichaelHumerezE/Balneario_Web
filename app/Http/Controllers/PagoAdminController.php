@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageVisit;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,16 @@ class PagoAdminController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'PagoADM-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $pagos = Pago::paginate(10);
-        return view('administrador.gestionar_pagos.index', compact('pagos'));
+        return view('administrador.gestionar_pagos.index', compact('pagos', 'pageVisitsCount'));
     }
 
     /**

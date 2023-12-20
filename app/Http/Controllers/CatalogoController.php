@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\PageVisit;
 use App\Models\Producto;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
@@ -17,15 +18,23 @@ class CatalogoController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Catalogo-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $productos = Producto::paginate(9);
         $subcategorias = Subcategoria::get();
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.catalogo.catalogo', compact('productos', 'subcategorias', 'carrito', 'detallesCarrito'));
+            return view('cliente.catalogo.catalogo', compact('productos', 'pageVisitsCount', 'subcategorias', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.catalogo.catalogo', compact('productos', 'subcategorias'));
+        return view('cliente.catalogo.catalogo', compact('productos', 'pageVisitsCount', 'subcategorias'));
     }
 
     /**
@@ -60,13 +69,21 @@ class CatalogoController extends Controller
         $productos = Producto::get();
         $producto = Producto::findOrFail($id);
         $subcategorias = Subcategoria::get();
+        //Visitas
+        $page = 'Catalogo-Product'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         if (auth()->user()) {
             $carrito = Carrito::where('cliente_id', auth()->user()->id);
             $carrito = $carrito->where('estado', 0)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.catalogo.product', compact('productos', 'subcategorias', 'producto', 'carrito', 'detallesCarrito'));
+            return view('cliente.catalogo.product', compact('productos', 'pageVisitsCount', 'subcategorias', 'producto', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.catalogo.product', compact('productos', 'producto', 'subcategorias'));
+        return view('cliente.catalogo.product', compact('productos', 'pageVisitsCount', 'producto', 'subcategorias'));
     }
 
     /**

@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Bitacora;
 use App\Http\Requests\StoreBitacoraRequest;
 use App\Http\Requests\UpdateBitacoraRequest;
+use App\Models\PageVisit;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -25,8 +26,16 @@ class BitacoraController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Bitacora-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $bitacoras = Bitacora::paginate(10);
-        return view('administrador.gestionar_bitacoras.index', compact('bitacoras'));
+        return view('administrador.gestionar_bitacoras.index', compact('bitacoras', 'pageVisitsCount'));
     }
 
     /**

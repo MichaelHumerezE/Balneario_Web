@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
 use App\Models\Bitacora;
 use App\Models\Categoria;
+use App\Models\PageVisit;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -30,8 +31,16 @@ class CategoriaController extends Controller
      */
     public function index()
     {
+        //Visitas
+        $page = 'Categoria-Index'; // Reemplaza con el nombre único de tu página
+        $pageVisits = PageVisit::firstOrCreate(['page' => $page]);
+        $pageVisitsCount = $pageVisits->visits;
+
+        // Incrementa el contador
+        $pageVisits->increment('visits');
+        //
         $categorias = Categoria::paginate(10);
-        return (view('administrador.gestionar_categoria.index', compact('categorias')));
+        return (view('administrador.gestionar_categoria.index', compact('categorias', 'pageVisitsCount')));
     }
 
     /**
